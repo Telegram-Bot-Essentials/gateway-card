@@ -1,0 +1,56 @@
+<?php
+
+namespace TelegramBotEssentials\GatewayCard\Telegram\StateAnswers\Admin;
+
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Telegram\Bot\Exceptions\TelegramSDKException;
+use TelegramBotEssentials\Essence\Enums\Roles;
+use TelegramBotEssentials\Essence\Exceptions\LogicException;
+use TelegramBotEssentials\Essence\Telegram\StateAnswers\StateAnswer;
+use TelegramBotEssentials\GatewayCard\Models\ToCardAttempt;
+
+class ManageCardPaymentAnswer extends StateAnswer
+{
+    protected string $type = 'MANAGE_INVOICE';
+    protected int $perm = Roles::ADMIN->value;
+
+    /**
+     * @throws BindingResolutionException
+     * @throws LogicException
+     * @throws TelegramSDKException
+     */
+    private function rejectReason(ToCardAttempt $toCardAttempt): void
+    {
+        $toCardAttempt->attemptFailed();
+
+        $toCardAttempt->reject_reason = wHook()->update()->message->text;
+        $toCardAttempt->save();
+        wHook()->user()->changeState();
+
+        wHook()->api()->sendMessage([
+            'chat_id' => wHook()->update()->message->chat->id,
+            'text' => __('tbe-billing::invoice.to_card.text.admin-payment_rejected'),
+            'reply_to_message_id' => $toCardAttempt->messageMeta->message_id,
+            'reply_markup' => wHook()->user()->getKeyboard(),
+        ]);
+
+        $text = __('tbe-billing::invoice.to_card.text.user-payment_rejected', [
+            'rejectionReason' => $toCardAttempt->reject_reason
+        ]);
+
+        wHook()->api()->sendMessage([
+            'chat_id' => $toCardAttempt->invoice->botUser->telegramUser->peer_id,
+            'text' => $text,
+        ]);
+
+        $toCardAttempt->messageMeta->lockAction(__('tbe-billing::invoice.to_card.lock-keys.admin-payment_rejected_by', [
+            'adminName' => wHook()->user()->telegramUser->full_name]), customEmoji: "❌");
+        $toCardAttempt->invoice->messageMeta->lockAction(__('tbe-billing::invoice.to_card.lock-keys.user-payment_rejected'), '❌');
+    }
+
+    function cancel(): void
+    {
+        $toCardAttempt = ToCardAttempt::findOrFail($this->params['to_card_attempt_id']);
+        $toCardAttempt->messageMeta->revertAction();
+    }
+}

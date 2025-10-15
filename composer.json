@@ -1,0 +1,50 @@
+{
+    "name": "telegram-bot-essentials/gateway-card",
+    "version": "0.0.1",
+    "description": "tbe-billing gateway support for card built for telegram-bot-essentials/essence",
+    "type": "library",
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^12",
+        "telegram-bot-essentials/billing": "*",
+        "telegram-bot-essentials/essence": "*",
+        "telegram-bot-essentials/settings": "*"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "TelegramBotEssentials\\GatewayCard\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Elyar",
+            "email": "elyareranjbar@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../telegram-bot-essentials"
+        },
+        {
+            "type": "path",
+            "url": "../tbe-billing"
+        },
+        {
+            "type": "path",
+            "url": "../tbe-settings"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "TelegramBotEssentials\\GatewayCard\\TbeGatewayCardServiceProvider"
+            ]
+        }
+    }
+}
