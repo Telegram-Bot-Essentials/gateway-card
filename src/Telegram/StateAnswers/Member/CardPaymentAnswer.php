@@ -24,7 +24,7 @@ class CardPaymentAnswer extends StateAnswer
      */
     function cancel(): void
     {
-        $invoice = Invoice::findOrFail($this->params['invoice_id']);
+        $invoice = Invoice::findOrFail($this->params['invoice']);
         $invoice->messageMeta->continueAction();
     }
 

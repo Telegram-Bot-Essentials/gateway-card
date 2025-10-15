@@ -50,7 +50,7 @@ class ManageCardPaymentAnswer extends StateAnswer
 
     function cancel(): void
     {
-        $toCardAttempt = ToCardAttempt::findOrFail($this->params['to_card_attempt_id']);
+        $toCardAttempt = ToCardAttempt::findOrFail($this->params['toCardAttempt']);
         $toCardAttempt->messageMeta->revertAction();
     }
 }
