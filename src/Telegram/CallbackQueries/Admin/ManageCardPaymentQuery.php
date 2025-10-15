@@ -32,7 +32,15 @@ class ManageCardPaymentQuery extends CallbackQuery
      */
     function rejectCardPayment(ToCardAttempt $toCardAttempt): void
     {
-        wHook()->user()->changeState(encodeAnswerState($this->type, "reject_reason", ["to_card_attempt_id" => $toCardAttempt->id]));
+        wHook()->user()->changeState(
+            encodeAnswerState(
+                $this->type,
+                "reject_reason",
+                [
+                    "to_card_attempt" => $toCardAttempt->id
+                ]
+            )
+        );
         $toCardAttempt->messageMeta->lockAction(__('tbe-billing::invoice.to_card.lock-keys.admin-rejecting_payment'));
 
         $text = __('tbe-billing::invoice.to_card.text.admin_payment_rejection', [

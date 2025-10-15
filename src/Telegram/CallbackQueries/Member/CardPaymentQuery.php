@@ -41,7 +41,15 @@ class CardPaymentQuery extends CallbackQuery
             'cardName' => settings()->get('billing.gateways.card.card_name')
         ]);
 
-        wHook()->user()->changeState(encodeAnswerState($this->type, "pay_to_card", ["invoice_id" => $invoice->id]));
+        wHook()->user()->changeState(
+            encodeAnswerState(
+                $this->type,
+                "pay_to_card",
+                [
+                    "invoice" => $invoice->id
+                ]
+            )
+        );
 
         $invoice->messageMeta->lockAction(__('tbe-billing::invoice.to_card.lock-keys.user-waiting_for_payment'));
 
