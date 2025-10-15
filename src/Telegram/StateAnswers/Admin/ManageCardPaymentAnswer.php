@@ -11,7 +11,7 @@ use TelegramBotEssentials\GatewayCard\Models\ToCardAttempt;
 
 class ManageCardPaymentAnswer extends StateAnswer
 {
-    protected string $type = 'MANAGE_INVOICE';
+    protected string $type = 'MANAGE_CARD_PAYMENT';
     protected int $perm = Roles::ADMIN->value;
 
     /**

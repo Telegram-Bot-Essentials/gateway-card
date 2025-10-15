@@ -61,10 +61,10 @@ class CardPaymentAnswer extends StateAnswer
 
         $replyMarkup->row([Keyboard::inlineButton([
             'text' => __('tbe-billing::invoice.to_card.keys.admin-accept_payment'),
-            'callback_data' => encodeCallback('MANAGE_INVOICE', 'accept_card_payment', [$invoice->paymentAttempt->id])
+            'callback_data' => encodeCallback('MANAGE_CARD_PAYMENT', 'accept_card_payment', [$invoice->paymentAttempt->id])
         ]), Keyboard::inlineButton([
             'text' => __('tbe-billing::invoice.to_card.keys.admin-reject_payment'),
-            'callback_data' => encodeCallback('MANAGE_INVOICE', 'reject_card_payment', [$invoice->paymentAttempt->id])
+            'callback_data' => encodeCallback('MANAGE_CARD_PAYMENT', 'reject_card_payment', [$invoice->paymentAttempt->id])
         ])]);
 
 
