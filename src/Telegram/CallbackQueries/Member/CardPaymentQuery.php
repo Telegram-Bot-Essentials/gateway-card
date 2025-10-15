@@ -22,7 +22,7 @@ class CardPaymentQuery extends CallbackQuery
      * @throws LogicException
      * @throws TelegramSDKException
      */
-    private function toCard(Invoice $invoice): void
+    function toCard(Invoice $invoice): void
     {
         dependsOn(settings()->get('billing.gateways.card.status'));
         dependsOn(settings()->get('billing.gateways.card.card_number'));
@@ -30,7 +30,7 @@ class CardPaymentQuery extends CallbackQuery
         dependsOn(settings()->get('billing.gateways.card.transactions_chat_id'));
 
         $toCardAttempt = ToCardAttempt::create([
-            'card_number' => wHook()->bot()->settings->pay_to_card_number,
+            'card_number' => settings()->get('billing.gateways.card.card_number'),
             'amount' => $invoice->price
         ]);
 

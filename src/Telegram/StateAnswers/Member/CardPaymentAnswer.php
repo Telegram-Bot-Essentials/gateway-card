@@ -34,7 +34,7 @@ class CardPaymentAnswer extends StateAnswer
      * @throws LogicException
      * @throws TelegramSDKException
      */
-    private function payToCard(Invoice $invoice): void
+    function payToCard(Invoice $invoice): void
     {
         if (!$invoice->paymentAttempt instanceof ToCardAttempt) return;
 
@@ -91,7 +91,7 @@ class CardPaymentAnswer extends StateAnswer
     /**
      * @throws TelegramSDKException
      */
-    private function storePaymentInformation(Invoice $invoice): void
+    function storePaymentInformation(Invoice $invoice): void
     {
         if (!$invoice->paymentAttempt instanceof ToCardAttempt) return;
         $toCardAttempt = $invoice->paymentAttempt;

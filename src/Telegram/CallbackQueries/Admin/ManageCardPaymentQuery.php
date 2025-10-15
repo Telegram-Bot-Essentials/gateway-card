@@ -14,7 +14,7 @@ class ManageCardPaymentQuery extends CallbackQuery
     protected string $type = 'MANAGE_CARD_PAYMENT';
     protected int $perm = Roles::ADMIN->value;
 
-    private function acceptCardPayment(ToCardAttempt $toCardAttempt): void
+    function acceptCardPayment(ToCardAttempt $toCardAttempt): void
     {
         $toCardAttempt->attemptSucceed();
         $invoice = $toCardAttempt->invoice;
@@ -30,7 +30,7 @@ class ManageCardPaymentQuery extends CallbackQuery
      * @throws TelegramSDKException
      * @throws LogicException
      */
-    private function rejectCardPayment(ToCardAttempt $toCardAttempt): void
+    function rejectCardPayment(ToCardAttempt $toCardAttempt): void
     {
         wHook()->user()->changeState(encodeAnswerState($this->type, "reject_reason", ["to_card_attempt_id" => $toCardAttempt->id]));
         $toCardAttempt->messageMeta->lockAction(__('tbe-billing::invoice.to_card.lock-keys.admin-rejecting_payment'));

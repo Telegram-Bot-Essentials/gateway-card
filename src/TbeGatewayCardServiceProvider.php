@@ -3,12 +3,15 @@
 namespace TelegramBotEssentials\GatewayCard;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Telegram\Bot\Keyboard\Keyboard;
 use TelegramBotEssentials\Billing\DTOs\Gateway;
 use TelegramBotEssentials\Billing\Models\Invoice;
 use TelegramBotEssentials\Essence\Exceptions\LogicException;
+use TelegramBotEssentials\GatewayCard\Telegram\CallbackQueries\Admin\ManageCardPaymentQuery;
+use TelegramBotEssentials\GatewayCard\Telegram\CallbackQueries\Member\CardPaymentQuery;
+use TelegramBotEssentials\GatewayCard\Telegram\StateAnswers\Admin\ManageCardPaymentAnswer;
+use TelegramBotEssentials\GatewayCard\Telegram\StateAnswers\Member\CardPaymentAnswer;
 use TelegramBotEssentials\Settings\DTOs\Setting;
 use TelegramBotEssentials\Settings\Enums\SettingType;
 
@@ -31,11 +34,13 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__ . '/../lang', 'tbe-gateway-card');
 
         callbackQueryBus()->addCallbackQueries([
-
+            ManageCardPaymentQuery::class,
+            CardPaymentQuery::class
         ]);
 
         stateAnswerBus()->addStateAnswers([
-
+            ManageCardPaymentAnswer::class,
+            CardPaymentAnswer::class,
         ]);
 
         $this->addSettings();

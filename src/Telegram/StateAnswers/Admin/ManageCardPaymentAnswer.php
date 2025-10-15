@@ -19,7 +19,7 @@ class ManageCardPaymentAnswer extends StateAnswer
      * @throws LogicException
      * @throws TelegramSDKException
      */
-    private function rejectReason(ToCardAttempt $toCardAttempt): void
+    function rejectReason(ToCardAttempt $toCardAttempt): void
     {
         $toCardAttempt->attemptFailed();
 
