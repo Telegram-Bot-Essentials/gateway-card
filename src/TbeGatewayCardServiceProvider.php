@@ -60,44 +60,44 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
     {
         settings()->addSetting(new Setting(
             key: 'billing',
-            label: 'Billing',
+            label: __('tbe-gateway-card::settings.labels.billing'),
             type: SettingType::DIRECTORY,
         ));
 
         settings()->addSetting(new Setting(
             key: 'billing.gateways',
-            label: 'Gateways',
+            label: __('tbe-gateway-card::settings.labels.gateways'),
             type: SettingType::DIRECTORY,
         ));
 
         settings()->addSetting(new Setting(
             key: 'billing.gateways.card',
-            label: 'To Card',
+            label: __('tbe-gateway-card::settings.labels.to_card'),
             type: SettingType::DIRECTORY,
         ));
 
         settings()->addSetting(new Setting(
             key: 'billing.gateways.card.status',
-            label: 'To Card Status',
+            label: __('tbe-gateway-card::settings.labels.status'),
             type: SettingType::CHECKBOX,
             default: false,
         ));
 
         settings()->addSetting(new Setting(
             key: 'billing.gateways.card.card_number',
-            label: 'Card Number',
+            label: __('tbe-gateway-card::settings.labels.card_number'),
             type: SettingType::TEXT,
         ));
 
         settings()->addSetting(new Setting(
             key: 'billing.gateways.card.card_name',
-            label: 'Card Name',
+            label: __('tbe-gateway-card::settings.labels.card_name'),
             type: SettingType::TEXT,
         ));
 
         settings()->addSetting(new Setting(
             key: 'billing.gateways.card.transactions_chat_id',
-            label: 'Transactions Chat ID',
+            label: __('tbe-gateway-card::settings.labels.transactions_chat_id'),
             type: SettingType::TEXT,
         ));
     }
@@ -106,10 +106,10 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
     {
         gateways()->addGateway(new Gateway(
             key: 'card',
-            label: 'Card',
+            label: __('tbe-gateway-card::invoice.to_card.labels.gateway'),
             inlineButtonGenerator: function (Invoice $invoice) {
                 return Keyboard::inlineButton([
-                    'text' => 'Card payment',
+                    'text' => __('tbe-gateway-card::invoice.to_card.keys.member-card_payment'),
                     'callback_data' => encodeCallback('CARD_PAYMENT', 'toCard', [$invoice->id])
                 ]);
             }

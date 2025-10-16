@@ -17,9 +17,9 @@ class ManageCardPaymentQuery extends CallbackQuery
     function acceptCardPayment(ToCardAttempt $toCardAttempt): void
     {
         $toCardAttempt->attemptSucceed();
-        $toCardAttempt->messageMeta->lockAction(__('tbe-billing::invoice.to_card.lock-keys.admin-payment_accepted_by', [
+        $toCardAttempt->messageMeta->lockAction(__('tbe-gateway-card::invoice.to_card.lock-keys.admin-payment_accepted_by', [
             'adminName' => wHook()->user()->telegramUser->full_name]), customEmoji: "✅");
-        $this->answer(__('tbe-billing::invoice.to_card.answers.admin-payment_accepted'));
+        $this->answer(__('tbe-gateway-card::invoice.to_card.answers.admin-payment_accepted'));
     }
 
     /**
@@ -39,9 +39,9 @@ class ManageCardPaymentQuery extends CallbackQuery
                 ]
             )
         );
-        $toCardAttempt->messageMeta->lockAction(__('tbe-billing::invoice.to_card.lock-keys.admin-rejecting_payment'));
+        $toCardAttempt->messageMeta->lockAction(__('tbe-gateway-card::invoice.to_card.lock-keys.admin-rejecting_payment'));
 
-        $text = __('tbe-billing::invoice.to_card.text.admin_payment_rejection', [
+        $text = __('tbe-gateway-card::invoice.to_card.text.admin_payment_rejection', [
             'toCardAttemptId' => $toCardAttempt->id,
         ]);
 
@@ -51,6 +51,6 @@ class ManageCardPaymentQuery extends CallbackQuery
             'reply_markup' => wHook()->user()->getKeyboard(),
             'reply_to_message_id' => $toCardAttempt->messageMeta->message_id,
         ]);
-        $this->answer(__('tbe-billing::invoice.to_card.answers.admin-rejecting_payment'));
+        $this->answer(__('tbe-gateway-card::invoice.to_card.answers.admin-rejecting_payment'));
     }
 }

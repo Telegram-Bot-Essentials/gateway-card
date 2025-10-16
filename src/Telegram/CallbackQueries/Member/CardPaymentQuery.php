@@ -36,7 +36,7 @@ class CardPaymentQuery extends CallbackQuery
 
         billing()->attemptPayment($invoice, $toCardAttempt);
 
-        $text = __('tbe-billing::invoice.to_card.text.user-pay_message', [
+        $text = __('tbe-gateway-card::invoice.to_card.text.user-pay_message', [
             'cardNumber' => settings()->get('billing.gateways.card.card_number'),
             'cardName' => settings()->get('billing.gateways.card.card_name')
         ]);
@@ -51,13 +51,13 @@ class CardPaymentQuery extends CallbackQuery
             )
         );
 
-        $invoice->messageMeta->lockAction(__('tbe-billing::invoice.to_card.lock-keys.user-waiting_for_payment'));
+        $invoice->messageMeta->lockAction(__('tbe-gateway-card::invoice.to_card.lock-keys.user-waiting_for_payment'));
 
         wHook()->api()->sendMessage([
             'chat_id' => wHook()->user()->telegramUser->peer_id,
             'text' => $text,
             'reply_markup' => wHook()->user()->getKeyboard()
         ]);
-        $this->answer(__('tbe-billing::invoice.to_card.answers.attempting'));
+        $this->answer(__('tbe-gateway-card::invoice.to_card.answers.attempting'));
     }
 }

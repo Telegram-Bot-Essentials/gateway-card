@@ -43,15 +43,15 @@ class CardPaymentAnswer extends StateAnswer
         $invoice->paymentAttempt->received_at = now();
         $invoice->paymentAttempt->save();
 
-        $invoice->messageMeta->lockAction(__('tbe-billing::invoice.to_card.lock-keys.user-wait_for_payment_processing'));
+        $invoice->messageMeta->lockAction(__('tbe-gateway-card::invoice.to_card.lock-keys.user-wait_for_payment_processing'));
         wHook()->user()->changeState();
         wHook()->api()->sendMessage([
             'chat_id' => wHook()->update()->message->from->id,
-            'text' => __('tbe-billing::invoice.to_card.text.user-payment_result'),
+            'text' => __('tbe-gateway-card::invoice.to_card.text.user-payment_result'),
             'reply_markup' => wHook()->user()->getKeyboard(),
         ]);
 
-        $text = __('tbe-billing::invoice.to_card.text.admin-payment_result', [
+        $text = __('tbe-gateway-card::invoice.to_card.text.admin-payment_result', [
             'invoiceId' => $invoice->id,
             'invoiceDescription' => $invoice->payable->description ?? null,
             'paymentDescription' => wHook()->update()->message?->photo ? wHook()->update()->message->caption : wHook()->update()->message->text,
@@ -60,10 +60,10 @@ class CardPaymentAnswer extends StateAnswer
         $replyMarkup = Keyboard::make()->inline();
 
         $replyMarkup->row([Keyboard::inlineButton([
-            'text' => __('tbe-billing::invoice.to_card.keys.admin-accept_payment'),
+            'text' => __('tbe-gateway-card::invoice.to_card.keys.admin-accept_payment'),
             'callback_data' => encodeCallback('MANAGE_CARD_PAYMENT', 'accept_card_payment', [$invoice->paymentAttempt->id])
         ]), Keyboard::inlineButton([
-            'text' => __('tbe-billing::invoice.to_card.keys.admin-reject_payment'),
+            'text' => __('tbe-gateway-card::invoice.to_card.keys.admin-reject_payment'),
             'callback_data' => encodeCallback('MANAGE_CARD_PAYMENT', 'reject_card_payment', [$invoice->paymentAttempt->id])
         ])]);
 
