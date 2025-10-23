@@ -28,16 +28,16 @@
     "minimum-stability": "stable",
     "repositories": [
         {
-            "type": "path",
-            "url": "../telegram-bot-essentials"
+            "type": "vcs",
+            "url": "https://github.com/Elyar0/telegram-bot-essentials"
         },
         {
-            "type": "path",
-            "url": "../tbe-billing"
+            "type": "vcs",
+            "url": "https://github.com/Elyar0/tbe-billing"
         },
         {
-            "type": "path",
-            "url": "../tbe-settings"
+            "type": "vcs",
+            "url": "https://github.com/Elyar0/tbe-settings"
         }
     ],
     "extra": {
