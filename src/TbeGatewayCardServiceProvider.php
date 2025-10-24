@@ -108,6 +108,14 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
             key: 'card',
             label: __('tbe-gateway-card::invoice.to_card.labels.gateway'),
             inlineButtonGenerator: function (Invoice $invoice) {
+                if(
+                    !settings()->get('billing.gateways.card.status') ||
+                    !settings()->get('billing.gateways.card.card_number') ||
+                    !settings()->get('billing.gateways.card.card_name') ||
+                    !settings()->get('billing.gateways.card.transactions_chat_id')
+                ){
+                    return null;
+                }
                 return Keyboard::inlineButton([
                     'text' => __('tbe-gateway-card::invoice.to_card.keys.member-card_payment'),
                     'callback_data' => encodeCallback('CARD_PAYMENT', 'toCard', [$invoice->id])
