@@ -10,6 +10,7 @@ use TelegramBotEssentials\Billing\Models\Invoice;
 use TelegramBotEssentials\Essence\Exceptions\LogicException;
 use TelegramBotEssentials\GatewayCard\Telegram\CallbackQueries\Admin\ManageCardPaymentQuery;
 use TelegramBotEssentials\GatewayCard\Telegram\CallbackQueries\Member\CardPaymentQuery;
+use TelegramBotEssentials\GatewayCard\Telegram\Features\Member\CardPaymentFeature;
 use TelegramBotEssentials\GatewayCard\Telegram\StateAnswers\Admin\ManageCardPaymentAnswer;
 use TelegramBotEssentials\GatewayCard\Telegram\StateAnswers\Member\CardPaymentAnswer;
 use TelegramBotEssentials\Settings\DTOs\Setting;
@@ -108,14 +109,7 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
             key: 'card',
             label: __('tbe-gateway-card::invoice.to_card.labels.gateway'),
             inlineButtonGenerator: function (Invoice $invoice) {
-                if(
-                    !settings()->get('billing.gateways.card.status') ||
-                    !settings()->get('billing.gateways.card.card_number') ||
-                    !settings()->get('billing.gateways.card.card_name') ||
-                    !settings()->get('billing.gateways.card.transactions_chat_id')
-                ){
-                    return null;
-                }
+                if(!CardPaymentFeature::isCardPaymentEnabled()) return null;
                 return Keyboard::inlineButton([
                     'text' => __('tbe-gateway-card::invoice.to_card.keys.member-card_payment'),
                     'callback_data' => encodeCallback('CARD_PAYMENT', 'toCard', [$invoice->id])

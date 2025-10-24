@@ -8,6 +8,7 @@ use TelegramBotEssentials\Essence\Enums\Roles;
 use TelegramBotEssentials\Essence\Exceptions\LogicException;
 use TelegramBotEssentials\Essence\Telegram\CallbackQueries\CallbackQuery;
 use TelegramBotEssentials\GatewayCard\Models\ToCardAttempt;
+use TelegramBotEssentials\GatewayCard\Telegram\Features\Member\CardPaymentFeature;
 
 class ManageCardPaymentQuery extends CallbackQuery
 {
@@ -52,5 +53,10 @@ class ManageCardPaymentQuery extends CallbackQuery
             'reply_to_message_id' => $toCardAttempt->messageMeta->message_id,
         ]);
         $this->answer(__('tbe-gateway-card::invoice.to_card.answers.admin-rejecting_payment'));
+    }
+
+    function isEnabled(): bool
+    {
+        return CardPaymentFeature::isCardPaymentEnabled();
     }
 }

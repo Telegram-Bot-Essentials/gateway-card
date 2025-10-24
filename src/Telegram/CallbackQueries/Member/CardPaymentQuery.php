@@ -10,6 +10,7 @@ use TelegramBotEssentials\Essence\Exceptions\FeatureIsDisabled;
 use TelegramBotEssentials\Essence\Exceptions\LogicException;
 use TelegramBotEssentials\Essence\Telegram\CallbackQueries\CallbackQuery;
 use TelegramBotEssentials\GatewayCard\Models\ToCardAttempt;
+use TelegramBotEssentials\GatewayCard\Telegram\Features\Member\CardPaymentFeature;
 
 class CardPaymentQuery extends CallbackQuery
 {
@@ -59,5 +60,10 @@ class CardPaymentQuery extends CallbackQuery
             'reply_markup' => wHook()->user()->getKeyboard()
         ]);
         $this->answer(__('tbe-gateway-card::invoice.to_card.answers.attempting'));
+    }
+
+    function isEnabled(): bool
+    {
+        return CardPaymentFeature::isCardPaymentEnabled();
     }
 }

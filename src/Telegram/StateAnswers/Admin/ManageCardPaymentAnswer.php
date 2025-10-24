@@ -8,6 +8,7 @@ use TelegramBotEssentials\Essence\Enums\Roles;
 use TelegramBotEssentials\Essence\Exceptions\LogicException;
 use TelegramBotEssentials\Essence\Telegram\StateAnswers\StateAnswer;
 use TelegramBotEssentials\GatewayCard\Models\ToCardAttempt;
+use TelegramBotEssentials\GatewayCard\Telegram\Features\Member\CardPaymentFeature;
 
 class ManageCardPaymentAnswer extends StateAnswer
 {
@@ -52,5 +53,10 @@ class ManageCardPaymentAnswer extends StateAnswer
     {
         $toCardAttempt = ToCardAttempt::findOrFail($this->params['toCardAttempt']);
         $toCardAttempt->messageMeta->revertAction();
+    }
+
+    function isEnabled(): bool
+    {
+        return CardPaymentFeature::isCardPaymentEnabled();
     }
 }
