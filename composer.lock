@@ -6087,16 +6087,16 @@
         },
         {
             "name": "telegram-bot-essentials/essence",
-            "version": "v0.8.3",
+            "version": "v0.8.4",
             "source": {
                 "type": "git",
                 "url": "git@github.com:Elyar0/telegram-bot-essentials.git",
-                "reference": "37b923fb2917bb92e906bc57eceaf380a6d040a8"
+                "reference": "556689365c3e819b65c212eeb5ee2142a91b3797"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Elyar0/telegram-bot-essentials/zipball/37b923fb2917bb92e906bc57eceaf380a6d040a8",
-                "reference": "37b923fb2917bb92e906bc57eceaf380a6d040a8",
+                "url": "https://api.github.com/repos/Elyar0/telegram-bot-essentials/zipball/556689365c3e819b65c212eeb5ee2142a91b3797",
+                "reference": "556689365c3e819b65c212eeb5ee2142a91b3797",
                 "shasum": ""
             },
             "require": {
@@ -6138,10 +6138,10 @@
             ],
             "description": "This is the how i like to develop my bots and handle different incoming requests",
             "support": {
-                "source": "https://github.com/Elyar0/telegram-bot-essentials/tree/v0.8.3",
+                "source": "https://github.com/Elyar0/telegram-bot-essentials/tree/v0.8.4",
                 "issues": "https://github.com/Elyar0/telegram-bot-essentials/issues"
             },
-            "time": "2025-10-26T09:11:50+00:00"
+            "time": "2025-10-26T10:15:18+00:00"
         },
         {
             "name": "telegram-bot-essentials/settings",
