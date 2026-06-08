@@ -76,6 +76,7 @@ class CardPaymentAnswer extends StateAnswer
                 'chat_id' => settings()->get('billing.gateways.card.transactions_chat_id'),
                 'text' => $text,
                 'reply_markup' => $replyMarkup,
+                'parse_mode' => 'HTML'
             ]);
         } else {
             $message = wHook()->api()->copyMessage([
@@ -84,6 +85,7 @@ class CardPaymentAnswer extends StateAnswer
                 'message_id' => wHook()->update()->message->messageId,
                 'caption' => $text,
                 'reply_markup' => $replyMarkup,
+                'parse_mode' => 'HTML'
             ]);
         }
 
