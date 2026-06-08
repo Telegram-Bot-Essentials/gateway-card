@@ -18,7 +18,7 @@ return [
             'user-payment_result' => '✅ پرداخت با موفقیت ثبت شد، منتظر پردازش بمانید',
             'user-pay_message' => 'مبلغ را به کارت زیر واریز کرده و نتیجه را ارسال کنید:'
                 . "\r\n"
-                . "\r\n🔸 :cardNumber"
+                . "\r\n🔸 <code>:cardNumber</code>"
                 . "\r\n :cardName",
             'user-payment_rejected' => "❌ پرداخت شما به دلیل زیر رد شد:"
                 . "\r\n:rejectionReason",

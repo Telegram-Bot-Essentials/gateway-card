@@ -18,7 +18,7 @@ return [
             'user-payment_result' => 'Payment submitted successfully, wait for processing',
             'user-pay_message' => 'Pay the amount to this card then send the result here for processing'
                 . "\r\n"
-                . "\r\n🔸 :cardNumber"
+                . "\r\n🔸 <code>:cardNumber</code>"
                 . "\r\n :cardName",
             'user-payment_rejected' => "❌ Your payment rejected due to reason below:"
                 . "\r\n:rejectionReason",
