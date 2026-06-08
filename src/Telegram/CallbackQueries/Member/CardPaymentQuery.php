@@ -58,7 +58,7 @@ class CardPaymentQuery extends CallbackQuery
             'chat_id' => wHook()->user()->telegramUser->peer_id,
             'text' => $text,
             'reply_markup' => wHook()->user()->getKeyboard(),
-            'HTML' => wHook()->user()->getKeyboard()
+            'parse_mode' => 'HTML'
         ]);
         $this->answer(__('tbe-gateway-card::invoice.to_card.answers.attempting'));
     }
