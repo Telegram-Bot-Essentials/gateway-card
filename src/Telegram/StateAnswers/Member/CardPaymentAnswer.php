@@ -54,6 +54,8 @@ class CardPaymentAnswer extends StateAnswer
 
         $text = __('tbe-gateway-card::invoice.to_card.text.admin-payment_result', [
             'invoiceId' => $invoice->id,
+            'userPeerId' => $invoice->botUser->telegramUser->peer_id,
+            'userFullName' => $invoice->botUser->telegramUser->full_name,
             'invoiceDescription' => $invoice->payable->description ?? null,
             'paymentDescription' => wHook()->update()->message?->photo ? wHook()->update()->message->caption : wHook()->update()->message->text,
         ]);

@@ -6,7 +6,9 @@ return [
             'admin-payment_result' => "#⃣ Invoice :invoiceId"
                 . "\r\n🏷 New to card Payment"
                 . "\r\n"
-                . "\r\n📝 Description: \r\n:invoiceDescription"
+                . "\r\n👤 User: <a href=\"tg://user?id=:userPeerId\">:userFullName</a>"
+                . "\r\n"
+                . "\r\n📝 Order Description: \r\n:invoiceDescription"
                 . "\r\n"
                 . "\r\n📝 User payment description: \r\n:paymentDescription",
             'admin_payment_rejection' => "🔏 Rejecting Card Payment :toCardAttemptId"

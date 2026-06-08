@@ -6,7 +6,9 @@ return [
             'admin-payment_result' => "#⃣ فاکتور :invoiceId"
                 . "\r\n🏷 پرداخت جدید به کارت"
                 . "\r\n"
-                . "\r\n📝 توضیحات فاکتور: \r\n:invoiceDescription"
+                . "\r\n👤 کاربر: <a href=\"tg://user?id=:userPeerId\">:userFullName</a>"
+                . "\r\n"
+                . "\r\n📝 توضیحات سفارش: \r\n:invoiceDescription"
                 . "\r\n"
                 . "\r\n📝 توضیحات پرداخت کاربر: \r\n:paymentDescription",
             'admin_payment_rejection' => "🔏 رد پرداخت کارت :toCardAttemptId"
