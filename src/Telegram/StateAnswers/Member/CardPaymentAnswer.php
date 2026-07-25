@@ -102,8 +102,10 @@ class CardPaymentAnswer extends StateAnswer
         $toCardAttempt = $invoice->paymentAttempt;
         $toCardAttempt->info_text = wHook()->update()->message?->photo ? wHook()->update()->message->caption : wHook()->update()->message->text;
 
-        if (wHook()->update()->message?->photo[0] ?? null) {
-            $file = wHook()->api()->getFile(['file_id' => wHook()->update()->message->photo[0]->file_id]);
+        if ($photo = wHook()->update()->message?->photo) {
+            // Telegram orders sizes smallest to largest; take the largest for a legible receipt.
+            $largestPhoto = end($photo);
+            $file = wHook()->api()->getFile(['file_id' => $largestPhoto->file_id]);
             $path = Storage::disk()->path(time() . '.jpg');
             wHook()->api()->downloadFile($file, $path);
             $base64EncodedPhoto = base64_encode(file_get_contents($path));
