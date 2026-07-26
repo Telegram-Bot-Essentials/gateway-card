@@ -37,6 +37,12 @@ class CardPaymentQuery extends CallbackQuery
 
         billing()->attemptPayment($invoice, $toCardAttempt);
 
+        tbeLog('gateway-card')->info('Card payment initiated', [
+            'invoice_id' => $invoice->getKey(),
+            'attempt_id' => $toCardAttempt->getKey(),
+            'amount' => $toCardAttempt->amount,
+        ]);
+
         $text = __('tbe-gateway-card::invoice.to_card.text.user-pay_message', [
             'cardNumber' => settings()->get('billing.gateways.card.card_number'),
             'cardName' => settings()->get('billing.gateways.card.card_name')

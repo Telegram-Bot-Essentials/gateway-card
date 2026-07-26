@@ -18,6 +18,12 @@ class ManageCardPaymentQuery extends CallbackQuery
     function acceptCardPayment(ToCardAttempt $toCardAttempt): void
     {
         $toCardAttempt->attemptSucceed();
+
+        tbeLog('gateway-card')->info('Card payment accepted by admin', [
+            'attempt_id' => $toCardAttempt->getKey(),
+            'amount' => $toCardAttempt->amount,
+        ]);
+
         $toCardAttempt->messageMeta->lockAction(__('tbe-gateway-card::invoice.to_card.lock-keys.admin-payment_accepted_by', [
             'adminName' => wHook()->user()->telegramUser->full_name]), customEmoji: "✅");
         $this->answer(__('tbe-gateway-card::invoice.to_card.answers.admin-payment_accepted'));
