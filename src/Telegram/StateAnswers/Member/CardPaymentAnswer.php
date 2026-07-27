@@ -108,11 +108,14 @@ class CardPaymentAnswer extends StateAnswer
             // last item for the largest, most legible size.
             $largestPhoto = $photo->last();
             $file = wHook()->api()->getFile(['file_id' => $largestPhoto->file_id]);
-            $path = Storage::disk()->path(time() . '.jpg');
-            wHook()->api()->downloadFile($file, $path);
-            $base64EncodedPhoto = base64_encode(file_get_contents($path));
-            Storage::delete($path);
-            $toCardAttempt->info_photo = $base64EncodedPhoto;
+
+            $disk = Storage::disk(config('tbe-gateway-card.disk', 'local'));
+            $relativePath = "gateway-card/to-card-attempts/{$toCardAttempt->id}.jpg";
+            $disk->makeDirectory('gateway-card/to-card-attempts');
+            // downloadFile() writes via a real filesystem path, so this only
+            // works against a local-driver disk (by design: see config disk key).
+            wHook()->api()->downloadFile($file, $disk->path($relativePath));
+            $toCardAttempt->info_photo_path = $relativePath;
         }
 
         $toCardAttempt->save();

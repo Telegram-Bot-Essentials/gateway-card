@@ -20,7 +20,7 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-
+        $this->mergeConfigFrom(__DIR__ . '/../config/tbe-gateway-card.php', 'tbe-gateway-card');
     }
 
     /**
@@ -54,6 +54,10 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/../lang' => resource_path('lang/vendor/tbe-gateway-card'),
             ], 'tbe-gateway-card-translations');
+
+            $this->publishes([
+                __DIR__ . '/../config/tbe-gateway-card.php' => config_path('tbe-gateway-card.php'),
+            ], 'tbe-gateway-card-config');
         }
     }
 
