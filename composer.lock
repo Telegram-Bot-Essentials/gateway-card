@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "55cf40aaea0bf55822b4529a0c9c9b7e",
+    "content-hash": "a1264d55e4dbc64bfca3bc67c0819632",
     "packages": [
         {
             "name": "brick/math",
@@ -6137,23 +6137,23 @@
         },
         {
             "name": "telegram-bot-essentials/billing",
-            "version": "v0.0.5",
+            "version": "v0.0.24",
             "source": {
                 "type": "git",
                 "url": "git@github.com:Elyar0/tbe-billing.git",
-                "reference": "38c2bd2e760d15b93e502b5e431f621bb2bf7f93"
+                "reference": "5fd53befd552994dc775ce9e7d28c94645d60ce5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Elyar0/tbe-billing/zipball/38c2bd2e760d15b93e502b5e431f621bb2bf7f93",
-                "reference": "38c2bd2e760d15b93e502b5e431f621bb2bf7f93",
+                "url": "https://api.github.com/repos/Elyar0/tbe-billing/zipball/5fd53befd552994dc775ce9e7d28c94645d60ce5",
+                "reference": "5fd53befd552994dc775ce9e7d28c94645d60ce5",
                 "shasum": ""
             },
             "require": {
                 "elyar/personal-laravel-helpers": "^0.0",
                 "laravel/framework": "^12",
                 "php": "^8.2",
-                "telegram-bot-essentials/essence": "^0.8",
+                "telegram-bot-essentials/essence": "^0.9",
                 "telegram-bot-essentials/settings": "^0.0"
             },
             "type": "library",
@@ -6183,27 +6183,27 @@
             ],
             "description": "User management feature built for telegram-bot-essentials/essence",
             "support": {
-                "source": "https://github.com/Elyar0/tbe-billing/tree/v0.0.5",
+                "source": "https://github.com/Elyar0/tbe-billing/tree/v0.0.24",
                 "issues": "https://github.com/Elyar0/tbe-billing/issues"
             },
-            "time": "2026-01-06T10:18:28+00:00"
+            "time": "2026-07-26T20:55:07+00:00"
         },
         {
             "name": "telegram-bot-essentials/essence",
-            "version": "v0.8.7",
+            "version": "v0.9.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:Elyar0/telegram-bot-essentials.git",
-                "reference": "dcf4fffb75c3971075c98007306634625f2e696a"
+                "reference": "c49ae92fa5707b319f07923a9681b0e28a663173"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Elyar0/telegram-bot-essentials/zipball/dcf4fffb75c3971075c98007306634625f2e696a",
-                "reference": "dcf4fffb75c3971075c98007306634625f2e696a",
+                "url": "https://api.github.com/repos/Elyar0/telegram-bot-essentials/zipball/c49ae92fa5707b319f07923a9681b0e28a663173",
+                "reference": "c49ae92fa5707b319f07923a9681b0e28a663173",
                 "shasum": ""
             },
             "require": {
-                "elyar/personal-laravel-helpers": "^0.0.2",
+                "elyar/personal-laravel-helpers": "*",
                 "irazasyed/telegram-bot-sdk": "^3.15",
                 "laravel/framework": "^12 || ^13",
                 "laravel/telescope": "*",
@@ -6241,29 +6241,29 @@
             ],
             "description": "This is the how i like to develop my bots and handle different incoming requests",
             "support": {
-                "source": "https://github.com/Elyar0/telegram-bot-essentials/tree/v0.8.7",
+                "source": "https://github.com/Elyar0/telegram-bot-essentials/tree/v0.9.0",
                 "issues": "https://github.com/Elyar0/telegram-bot-essentials/issues"
             },
-            "time": "2026-05-18T06:53:57+00:00"
+            "time": "2026-07-26T20:51:22+00:00"
         },
         {
             "name": "telegram-bot-essentials/settings",
-            "version": "v0.0.3",
+            "version": "v0.0.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:Elyar0/tbe-settings.git",
-                "reference": "30d98d269d75cf6c0924d0aa10def540c6557a1e"
+                "reference": "753911458ad3ccb05b983f531e3b013a8d0f5082"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Elyar0/tbe-settings/zipball/30d98d269d75cf6c0924d0aa10def540c6557a1e",
-                "reference": "30d98d269d75cf6c0924d0aa10def540c6557a1e",
+                "url": "https://api.github.com/repos/Elyar0/tbe-settings/zipball/753911458ad3ccb05b983f531e3b013a8d0f5082",
+                "reference": "753911458ad3ccb05b983f531e3b013a8d0f5082",
                 "shasum": ""
             },
             "require": {
                 "laravel/framework": "^12",
                 "php": "^8.2",
-                "telegram-bot-essentials/essence": "^0.8"
+                "telegram-bot-essentials/essence": "^0.9"
             },
             "type": "library",
             "extra": {
@@ -6292,10 +6292,10 @@
             ],
             "description": "Settings support built for telegram-bot-essentials/essence",
             "support": {
-                "source": "https://github.com/Elyar0/tbe-settings/tree/v0.0.3",
+                "source": "https://github.com/Elyar0/tbe-settings/tree/v0.0.5",
                 "issues": "https://github.com/Elyar0/tbe-settings/issues"
             },
-            "time": "2025-10-24T10:36:17+00:00"
+            "time": "2026-07-26T21:06:07+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
