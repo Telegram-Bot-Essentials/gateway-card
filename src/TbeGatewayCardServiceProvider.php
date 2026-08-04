@@ -67,18 +67,21 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
             key: 'billing',
             label: fn () => __('tbe-gateway-card::settings.labels.billing'),
             type: SettingType::DIRECTORY,
+            description: fn () => __('tbe-gateway-card::settings.descriptions.billing'),
         ));
 
         settings()->addSetting(new Setting(
             key: 'billing.gateways',
             label: fn () => __('tbe-gateway-card::settings.labels.gateways'),
             type: SettingType::DIRECTORY,
+            description: fn () => __('tbe-gateway-card::settings.descriptions.gateways'),
         ));
 
         settings()->addSetting(new Setting(
             key: 'billing.gateways.card',
             label: fn () => __('tbe-gateway-card::settings.labels.to_card'),
             type: SettingType::DIRECTORY,
+            description: fn () => __('tbe-gateway-card::settings.descriptions.to_card'),
         ));
 
         settings()->addSetting(new Setting(
@@ -86,24 +89,28 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
             label: fn () => __('tbe-gateway-card::settings.labels.status'),
             type: SettingType::CHECKBOX,
             default: false,
+            description: fn () => __('tbe-gateway-card::settings.descriptions.status'),
         ));
 
         settings()->addSetting(new Setting(
             key: 'billing.gateways.card.card_number',
             label: fn () => __('tbe-gateway-card::settings.labels.card_number'),
             type: SettingType::TEXT,
+            description: fn () => __('tbe-gateway-card::settings.descriptions.card_number'),
         ));
 
         settings()->addSetting(new Setting(
             key: 'billing.gateways.card.card_name',
             label: fn () => __('tbe-gateway-card::settings.labels.card_name'),
             type: SettingType::TEXT,
+            description: fn () => __('tbe-gateway-card::settings.descriptions.card_name'),
         ));
 
         settings()->addSetting(new Setting(
             key: 'billing.gateways.card.transactions_chat_id',
             label: fn () => __('tbe-gateway-card::settings.labels.transactions_chat_id'),
             type: SettingType::TEXT,
+            description: fn () => __('tbe-gateway-card::settings.descriptions.transactions_chat_id'),
         ));
     }
 
