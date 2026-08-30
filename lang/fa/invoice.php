@@ -3,25 +3,25 @@
 return [
     'to_card' => [
         'text' => [
-            'admin-payment_result' => "#⃣ فاکتور :invoiceId"
-                . "\r\n🏷 پرداخت جدید به کارت"
-                . "\r\n"
-                . "\r\n👤 کاربر: <a href=\"tg://user?id=:userPeerId\">:userFullName</a>"
-                . "\r\n"
-                . "\r\n📝 توضیحات سفارش: \r\n:invoiceDescription"
-                . "\r\n"
-                . "\r\n📝 توضیحات پرداخت کاربر: \r\n:paymentDescription",
-            'admin_payment_rejection' => "🔏 رد پرداخت کارت :toCardAttemptId"
-                . "\r\n"
-                . "\r\nدلیل رد پرداخت را وارد کنید:",
-            'admin-payment_rejected' => "🛑 دلیل ارسال شد و پرداخت با موفقیت رد شد.",
+            'admin-payment_result' => '#⃣ فاکتور :invoiceId'
+                ."\r\n🏷 پرداخت جدید به کارت"
+                ."\r\n"
+                ."\r\n👤 کاربر: <a href=\"tg://user?id=:userPeerId\">:userFullName</a>"
+                ."\r\n"
+                ."\r\n📝 توضیحات سفارش: \r\n:invoiceDescription"
+                ."\r\n"
+                ."\r\n📝 توضیحات پرداخت کاربر: \r\n:paymentDescription",
+            'admin_payment_rejection' => '🔏 رد پرداخت کارت :toCardAttemptId'
+                ."\r\n"
+                ."\r\nدلیل رد پرداخت را وارد کنید:",
+            'admin-payment_rejected' => '🛑 دلیل ارسال شد و پرداخت با موفقیت رد شد.',
             'user-payment_result' => '✅ پرداخت با موفقیت ثبت شد، منتظر پردازش بمانید',
             'user-pay_message' => 'مبلغ را به کارت زیر واریز کرده و نتیجه را ارسال کنید:'
-                . "\r\n"
-                . "\r\n🔸 <code>:cardNumber</code>"
-                . "\r\n :cardName",
-            'user-payment_rejected' => "❌ پرداخت شما به دلیل زیر رد شد:"
-                . "\r\n:rejectionReason",
+                ."\r\n"
+                ."\r\n🔸 <code>:cardNumber</code>"
+                ."\r\n :cardName",
+            'user-payment_rejected' => '❌ پرداخت شما به دلیل زیر رد شد:'
+                ."\r\n:rejectionReason",
         ],
         'answers' => [
             'admin-rejecting_payment' => 'در حال آماده‌سازی برای رد پرداخت',

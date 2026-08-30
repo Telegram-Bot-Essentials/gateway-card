@@ -13,9 +13,10 @@ use TelegramBotEssentials\GatewayCard\Telegram\Features\Member\CardPaymentFeatur
 class ManageCardPaymentQuery extends CallbackQuery
 {
     protected string $type = 'MANAGE_CARD_PAYMENT';
+
     protected int $perm = Roles::ADMIN->value;
 
-    function acceptCardPayment(ToCardAttempt $toCardAttempt): void
+    public function acceptCardPayment(ToCardAttempt $toCardAttempt): void
     {
         $toCardAttempt->attemptSucceed();
 
@@ -25,24 +26,23 @@ class ManageCardPaymentQuery extends CallbackQuery
         ]);
 
         $toCardAttempt->messageMeta->lockAction(__('tbe-gateway-card::invoice.to_card.lock-keys.admin-payment_accepted_by', [
-            'adminName' => wHook()->user()->telegramUser->full_name]), customEmoji: "✅");
+            'adminName' => wHook()->user()->telegramUser->full_name]), customEmoji: '✅');
         $this->answer(__('tbe-gateway-card::invoice.to_card.answers.admin-payment_accepted'));
     }
 
     /**
-     * @param ToCardAttempt $toCardAttempt
      * @throws BindingResolutionException
      * @throws TelegramSDKException
      * @throws LogicException
      */
-    function rejectCardPayment(ToCardAttempt $toCardAttempt): void
+    public function rejectCardPayment(ToCardAttempt $toCardAttempt): void
     {
         wHook()->user()->changeState(
             encodeAnswerState(
                 $this->type,
-                "reject_reason",
+                'reject_reason',
                 [
-                    "toCardAttempt" => $toCardAttempt->id
+                    'toCardAttempt' => $toCardAttempt->id,
                 ]
             )
         );
@@ -61,7 +61,7 @@ class ManageCardPaymentQuery extends CallbackQuery
         $this->answer(__('tbe-gateway-card::invoice.to_card.answers.admin-rejecting_payment'));
     }
 
-    function isEnabled(): bool
+    public function isEnabled(): bool
     {
         return CardPaymentFeature::isCardPaymentEnabled();
     }

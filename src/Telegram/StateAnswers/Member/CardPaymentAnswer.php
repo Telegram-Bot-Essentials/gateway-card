@@ -17,27 +17,30 @@ use TelegramBotEssentials\GatewayCard\Telegram\Features\Member\CardPaymentFeatur
 class CardPaymentAnswer extends StateAnswer
 {
     protected string $type = 'CARD_PAYMENT';
+
     protected int $perm = Roles::MEMBER->value;
+
     protected array $allowedFields = [AllowableFields::TEXT->value, AllowableFields::PHOTO->value];
 
     /**
      * @throws TelegramSDKException
      */
-    function cancel(): void
+    public function cancel(): void
     {
         $invoice = Invoice::findOrFail($this->params['invoice']);
         $invoice->messageMeta->continueAction();
     }
 
     /**
-     * @param Invoice $invoice
      * @throws BindingResolutionException
      * @throws LogicException
      * @throws TelegramSDKException
      */
-    function payToCard(Invoice $invoice): void
+    public function payToCard(Invoice $invoice): void
     {
-        if (!$invoice->paymentAttempt instanceof ToCardAttempt) return;
+        if (! $invoice->paymentAttempt instanceof ToCardAttempt) {
+            return;
+        }
 
         $this->storePaymentInformation($invoice);
 
@@ -64,19 +67,18 @@ class CardPaymentAnswer extends StateAnswer
 
         $replyMarkup->row([Keyboard::inlineButton([
             'text' => __('tbe-gateway-card::invoice.to_card.keys.admin-accept_payment'),
-            'callback_data' => encodeCallback('MANAGE_CARD_PAYMENT', 'accept_card_payment', [$invoice->paymentAttempt->id])
+            'callback_data' => encodeCallback('MANAGE_CARD_PAYMENT', 'accept_card_payment', [$invoice->paymentAttempt->id]),
         ]), Keyboard::inlineButton([
             'text' => __('tbe-gateway-card::invoice.to_card.keys.admin-reject_payment'),
-            'callback_data' => encodeCallback('MANAGE_CARD_PAYMENT', 'reject_card_payment', [$invoice->paymentAttempt->id])
+            'callback_data' => encodeCallback('MANAGE_CARD_PAYMENT', 'reject_card_payment', [$invoice->paymentAttempt->id]),
         ])]);
-
 
         if (wHook()->update()->message?->text) {
             $message = wHook()->api()->sendMessage([
                 'chat_id' => settings()->get('billing.gateways.card.transactions_chat_id'),
                 'text' => $text,
                 'reply_markup' => $replyMarkup,
-                'parse_mode' => 'HTML'
+                'parse_mode' => 'HTML',
             ]);
         } else {
             $message = wHook()->api()->copyMessage([
@@ -85,7 +87,7 @@ class CardPaymentAnswer extends StateAnswer
                 'message_id' => wHook()->update()->message->messageId,
                 'caption' => $text,
                 'reply_markup' => $replyMarkup,
-                'parse_mode' => 'HTML'
+                'parse_mode' => 'HTML',
             ]);
         }
 
@@ -96,9 +98,11 @@ class CardPaymentAnswer extends StateAnswer
     /**
      * @throws TelegramSDKException
      */
-    function storePaymentInformation(Invoice $invoice): void
+    public function storePaymentInformation(Invoice $invoice): void
     {
-        if (!$invoice->paymentAttempt instanceof ToCardAttempt) return;
+        if (! $invoice->paymentAttempt instanceof ToCardAttempt) {
+            return;
+        }
         $toCardAttempt = $invoice->paymentAttempt;
         $toCardAttempt->info_text = wHook()->update()->message?->photo ? wHook()->update()->message->caption : wHook()->update()->message->text;
 
@@ -121,7 +125,7 @@ class CardPaymentAnswer extends StateAnswer
         $toCardAttempt->save();
     }
 
-    function isEnabled(): bool
+    public function isEnabled(): bool
     {
         return CardPaymentFeature::isCardPaymentEnabled();
     }

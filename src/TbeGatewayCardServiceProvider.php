@@ -20,7 +20,7 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/tbe-gateway-card.php', 'tbe-gateway-card');
+        $this->mergeConfigFrom(__DIR__.'/../config/tbe-gateway-card.php', 'tbe-gateway-card');
     }
 
     /**
@@ -31,12 +31,12 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
     {
         $this->registerPublishing();
 
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'tbe-gateway-card');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'tbe-gateway-card');
 
         callbackQueryBus()->addCallbackQueries([
             ManageCardPaymentQuery::class,
-            CardPaymentQuery::class
+            CardPaymentQuery::class,
         ]);
 
         stateAnswerBus()->addStateAnswers([
@@ -52,11 +52,11 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../lang' => resource_path('lang/vendor/tbe-gateway-card'),
+                __DIR__.'/../lang' => resource_path('lang/vendor/tbe-gateway-card'),
             ], 'tbe-gateway-card-translations');
 
             $this->publishes([
-                __DIR__ . '/../config/tbe-gateway-card.php' => config_path('tbe-gateway-card.php'),
+                __DIR__.'/../config/tbe-gateway-card.php' => config_path('tbe-gateway-card.php'),
             ], 'tbe-gateway-card-config');
         }
     }
@@ -120,10 +120,13 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
             key: 'card',
             label: __('tbe-gateway-card::invoice.to_card.labels.gateway'),
             inlineButtonGenerator: function (Invoice $invoice) {
-                if(!CardPaymentFeature::isCardPaymentEnabled()) return null;
+                if (! CardPaymentFeature::isCardPaymentEnabled()) {
+                    return null;
+                }
+
                 return Keyboard::inlineButton([
                     'text' => __('tbe-gateway-card::invoice.to_card.keys.member-card_payment'),
-                    'callback_data' => encodeCallback('CARD_PAYMENT', 'toCard', [$invoice->id])
+                    'callback_data' => encodeCallback('CARD_PAYMENT', 'toCard', [$invoice->id]),
                 ]);
             }
         ));

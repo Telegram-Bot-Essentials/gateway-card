@@ -9,6 +9,7 @@ use TelegramBotEssentials\Essence\Traits\HasMessageMeta;
 class ToCardAttempt extends PaymentAttempt
 {
     use HasMessageMeta;
+
     protected $guarded = [
         'id',
         'updated_at',
@@ -29,7 +30,7 @@ class ToCardAttempt extends PaymentAttempt
 
     public function getInfoPhotoAttribute(): ?string
     {
-        if (!$this->info_photo_path) {
+        if (! $this->info_photo_path) {
             return null;
         }
 

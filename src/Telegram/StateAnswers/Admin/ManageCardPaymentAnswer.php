@@ -13,6 +13,7 @@ use TelegramBotEssentials\GatewayCard\Telegram\Features\Member\CardPaymentFeatur
 class ManageCardPaymentAnswer extends StateAnswer
 {
     protected string $type = 'MANAGE_CARD_PAYMENT';
+
     protected int $perm = Roles::ADMIN->value;
 
     /**
@@ -20,7 +21,7 @@ class ManageCardPaymentAnswer extends StateAnswer
      * @throws LogicException
      * @throws TelegramSDKException
      */
-    function rejectReason(ToCardAttempt $toCardAttempt): void
+    public function rejectReason(ToCardAttempt $toCardAttempt): void
     {
         $toCardAttempt->attemptFailed();
 
@@ -42,7 +43,7 @@ class ManageCardPaymentAnswer extends StateAnswer
         ]);
 
         $text = __('tbe-gateway-card::invoice.to_card.text.user-payment_rejected', [
-            'rejectionReason' => $toCardAttempt->reject_reason
+            'rejectionReason' => $toCardAttempt->reject_reason,
         ]);
 
         wHook()->api()->sendMessage([
@@ -51,17 +52,17 @@ class ManageCardPaymentAnswer extends StateAnswer
         ]);
 
         $toCardAttempt->messageMeta->lockAction(__('tbe-gateway-card::invoice.to_card.lock-keys.admin-payment_rejected_by', [
-            'adminName' => wHook()->user()->telegramUser->full_name]), customEmoji: "❌");
+            'adminName' => wHook()->user()->telegramUser->full_name]), customEmoji: '❌');
         $toCardAttempt->invoice->messageMeta->lockAction(__('tbe-gateway-card::invoice.to_card.lock-keys.user-payment_rejected'), '❌');
     }
 
-    function cancel(): void
+    public function cancel(): void
     {
         $toCardAttempt = ToCardAttempt::findOrFail($this->params['toCardAttempt']);
         $toCardAttempt->messageMeta->revertAction();
     }
 
-    function isEnabled(): bool
+    public function isEnabled(): bool
     {
         return CardPaymentFeature::isCardPaymentEnabled();
     }

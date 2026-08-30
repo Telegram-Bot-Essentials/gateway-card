@@ -15,6 +15,7 @@ use TelegramBotEssentials\GatewayCard\Telegram\Features\Member\CardPaymentFeatur
 class CardPaymentQuery extends CallbackQuery
 {
     protected string $type = 'CARD_PAYMENT';
+
     protected int $perm = Roles::MEMBER->value;
 
     /**
@@ -23,7 +24,7 @@ class CardPaymentQuery extends CallbackQuery
      * @throws LogicException
      * @throws TelegramSDKException
      */
-    function toCard(Invoice $invoice): void
+    public function toCard(Invoice $invoice): void
     {
         dependsOn(settings()->get('billing.gateways.card.status'));
         dependsOn(settings()->get('billing.gateways.card.card_number'));
@@ -32,7 +33,7 @@ class CardPaymentQuery extends CallbackQuery
 
         $toCardAttempt = ToCardAttempt::create([
             'card_number' => settings()->get('billing.gateways.card.card_number'),
-            'amount' => $invoice->price
+            'amount' => $invoice->price,
         ]);
 
         billing()->attemptPayment($invoice, $toCardAttempt);
@@ -45,15 +46,15 @@ class CardPaymentQuery extends CallbackQuery
 
         $text = __('tbe-gateway-card::invoice.to_card.text.user-pay_message', [
             'cardNumber' => settings()->get('billing.gateways.card.card_number'),
-            'cardName' => settings()->get('billing.gateways.card.card_name')
+            'cardName' => settings()->get('billing.gateways.card.card_name'),
         ]);
 
         wHook()->user()->changeState(
             encodeAnswerState(
                 $this->type,
-                "pay_to_card",
+                'pay_to_card',
                 [
-                    "invoice" => $invoice->id
+                    'invoice' => $invoice->id,
                 ]
             )
         );
@@ -64,12 +65,12 @@ class CardPaymentQuery extends CallbackQuery
             'chat_id' => wHook()->user()->telegramUser->peer_id,
             'text' => $text,
             'reply_markup' => wHook()->user()->getKeyboard(),
-            'parse_mode' => 'HTML'
+            'parse_mode' => 'HTML',
         ]);
         $this->answer(__('tbe-gateway-card::invoice.to_card.answers.attempting'));
     }
 
-    function isEnabled(): bool
+    public function isEnabled(): bool
     {
         return CardPaymentFeature::isCardPaymentEnabled();
     }
