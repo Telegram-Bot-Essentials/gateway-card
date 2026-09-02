@@ -79,7 +79,7 @@ parameters:
 			path: src/Telegram/CallbackQueries/Admin/ManageCardPaymentQuery.php
 
 		-
-			message: '#^Parameter \#2 \$replace of function __ expects array\<string, bool\|float\|int\|string\|null\>, array\<string, mixed\> given\.$#'
+			message: '#^Parameter \#2 \$replace of function __ expects array\<string, .+\>, array.+ given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Telegram/CallbackQueries/Admin/ManageCardPaymentQuery.php
@@ -115,7 +115,7 @@ parameters:
 			path: src/Telegram/CallbackQueries/Member/CardPaymentQuery.php
 
 		-
-			message: '#^Parameter \#2 \$replace of function __ expects array\<string, bool\|float\|int\|string\|null\>, array\<string, mixed\> given\.$#'
+			message: '#^Parameter \#2 \$replace of function __ expects array\<string, .+\>, array.+ given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Telegram/CallbackQueries/Member/CardPaymentQuery.php
@@ -205,7 +205,7 @@ parameters:
 			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
 
 		-
-			message: '#^Parameter \#2 \$replace of function __ expects array\<string, bool\|float\|int\|string\|null\>, array\<string, mixed\> given\.$#'
+			message: '#^Parameter \#2 \$replace of function __ expects array\<string, .+\>, array.+ given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
@@ -331,7 +331,7 @@ parameters:
 			path: src/Telegram/StateAnswers/Member/CardPaymentAnswer.php
 
 		-
-			message: '#^Parameter \#2 \$replace of function __ expects array\<string, bool\|float\|int\|string\|null\>, array\<string, mixed\> given\.$#'
+			message: '#^Parameter \#2 \$replace of function __ expects array\<string, .+\>, array.+ given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Telegram/StateAnswers/Member/CardPaymentAnswer.php
