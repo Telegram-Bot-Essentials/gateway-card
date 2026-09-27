@@ -28,7 +28,7 @@ class ManageCardPaymentAnswer extends StateAnswer
         $toCardAttempt->reject_reason = wHook()->update()->message->text;
         $toCardAttempt->save();
 
-        tbeLog('gateway-card')->warning('Card payment rejected by admin', [
+        tbeLog('gateway-card')->audit('Rejected card payment #{attempt_id} of {amount}: {reject_reason}', [
             'attempt_id' => $toCardAttempt->getKey(),
             'amount' => $toCardAttempt->amount,
             'reject_reason' => $toCardAttempt->reject_reason,
