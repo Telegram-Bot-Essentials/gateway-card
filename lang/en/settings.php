@@ -34,4 +34,9 @@ return [
         'sms_secret' => "Shared secret used to verify SMS forwarded from your phone. Must match the secret configured in the forwarder app.\n\nForwarder app URL: :url",
         'unique_amount' => 'Add a small extra amount to a to-card invoice so payments can be told apart automatically. Hard always adds it, Soft only when another pending payment already needs it, Disabled never adds it. Any extra amount is credited to the member\'s wallet when that feature is available and enabled.',
     ],
+
+    'alerts' => [
+        'sms_no_bank' => "A bank SMS reached the card gateway, but no bank is chosen for SMS auto-verify, so card payments are not being confirmed automatically.\nPick the bank in the card gateway settings.",
+        'sms_currency' => 'A bank SMS reached the card gateway, but the billing currency is :currency. SMS auto-verify only works with IRR or IRT, so card payments are not being confirmed automatically.',
+    ],
 ];
