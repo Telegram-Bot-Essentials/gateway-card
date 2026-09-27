@@ -100,7 +100,7 @@ class ToCardAttempt extends PaymentAttempt
 
             wallet()->addAmount((string) $extra);
         } catch (\Throwable $e) {
-            tbeLog('gateway-card')->error('Failed to credit unique-amount extra to wallet', [
+            tbeLog('gateway-card')->error('Could not credit the unique-amount extra {extra_amount} of card payment #{attempt_id} to the wallet', [
                 'attempt_id' => $this->getKey(),
                 'extra_amount' => (string) $extra,
                 'exception' => $e,
