@@ -37,7 +37,7 @@ class CardSmsMatcher
         $parser = BankSmsParserFactory::make(settings()->get('billing.gateways.card.sms_bank'));
 
         if ($parser === null) {
-            tbeLog('gateway-card')->debug('SMS webhook: no bank parser configured for this bot, ignoring');
+            adminAlert('gateway-card.sms.no_bank', fn () => __('tbe-gateway-card::settings.alerts.sms_no_bank'), $bot);
 
             return;
         }
@@ -55,9 +55,10 @@ class CardSmsMatcher
         $amount = $this->convertToTenantCurrency($rialAmount);
 
         if ($amount === null) {
-            tbeLog('gateway-card')->warning('SMS webhook: cannot match, billing currency is not Rial-based', [
-                'currency' => settings()->get('billing.currency'),
-            ]);
+            $currency = settings()->get('billing.currency');
+            adminAlert('gateway-card.sms.currency', fn () => __('tbe-gateway-card::settings.alerts.sms_currency', [
+                'currency' => is_string($currency) ? $currency : '-',
+            ]), $bot);
 
             return;
         }
@@ -157,7 +158,7 @@ class CardSmsMatcher
             customEmoji: '✅'
         );
 
-        tbeLog('gateway-card')->info('Card payment auto-verified via SMS', [
+        tbeLog('gateway-card')->for(wHook()->user())->info('Card payment #{attempt_id} auto-verified via SMS: {amount}', [
             'attempt_id' => $toCardAttempt->getKey(),
             'amount' => $amount,
         ]);
@@ -165,7 +166,7 @@ class CardSmsMatcher
 
     private function reportUnmatched(string $amount, int $candidateCount): void
     {
-        tbeLog('gateway-card')->warning('SMS amount did not uniquely match a pending card attempt', [
+        tbeLog('gateway-card')->warning('Bank SMS for {amount} matched {candidate_count} pending card payments, left for manual review', [
             'amount' => $amount,
             'candidate_count' => $candidateCount,
         ]);
