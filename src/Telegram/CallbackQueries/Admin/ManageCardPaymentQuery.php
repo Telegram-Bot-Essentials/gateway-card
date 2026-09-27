@@ -20,7 +20,7 @@ class ManageCardPaymentQuery extends CallbackQuery
     {
         $toCardAttempt->attemptSucceed();
 
-        tbeLog('gateway-card')->info('Card payment accepted by admin', [
+        tbeLog('gateway-card')->audit('Accepted card payment #{attempt_id} of {amount}', [
             'attempt_id' => $toCardAttempt->getKey(),
             'amount' => $toCardAttempt->amount,
         ]);
