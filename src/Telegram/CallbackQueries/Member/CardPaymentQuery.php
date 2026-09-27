@@ -52,7 +52,7 @@ class CardPaymentQuery extends CallbackQuery
 
         billing()->attemptPayment($invoice, $toCardAttempt);
 
-        tbeLog('gateway-card')->info('Card payment initiated', [
+        tbeLog('gateway-card')->info('Card payment #{attempt_id} started for invoice #{invoice_id}: {amount}', [
             'invoice_id' => $invoice->getKey(),
             'attempt_id' => $toCardAttempt->getKey(),
             'amount' => $toCardAttempt->amount,
