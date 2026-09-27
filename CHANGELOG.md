@@ -6,6 +6,8 @@ stabilizes at 1.0 a `0.x` bump may carry breaking changes.
 
 ## [Unreleased]
 
+## [0.1.15] - 2026-09-27
+
 ### Changed
 
 - Requires essence `^0.15` for `adminAlert()`, `tbeLog()->audit()` and
