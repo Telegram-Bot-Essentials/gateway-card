@@ -298,7 +298,16 @@ it('does not match an attempt outside the matching window', function () {
     expect($attempt->fresh()->status)->toBeNull();
 });
 
-it('refuses to match when the tenant currency is not Rial-based', function () {
+/** @return list<array{chat_id: int, text: string}> */
+function sentMessages(): array
+{
+    return Http::recorded(fn ($request) => str_ends_with((string) $request->url(), '/sendMessage'))
+        ->map(fn ($pair) => ['chat_id' => (int) $pair[0]['chat_id'], 'text' => (string) $pair[0]['text']])
+        ->values()
+        ->all();
+}
+
+it('refuses to match when the tenant currency is not Rial-based, and tells the owner why', function () {
     $bot = $this->makeBot();
     configureCardSettings($bot, currency: 'USD');
 
@@ -306,8 +315,27 @@ it('refuses to match when the tenant currency is not Rial-based', function () {
 
     app(CardSmsMatcher::class)->handle($bot, bluBankSms('3650000'));
 
-    expect($attempt->fresh()->status)->toBeNull();
-    expect(telegramCalled('sendMessage'))->toBeFalse();
+    expect($attempt->fresh()->status)->toBeNull()
+        ->and(sentMessages())->toBe([[
+            'chat_id' => (int) $bot->bot_owner_peer_id,
+            'text' => '⚠️ '.__('tbe-gateway-card::settings.alerts.sms_currency', ['currency' => 'USD']),
+        ]]);
+});
+
+it('tells the owner when an SMS arrives but no bank is chosen', function () {
+    $bot = $this->makeBot();
+    configureCardSettings($bot, bank: '');
+
+    $attempt = makePendingAttempt($bot, '365000', now());
+
+    app(CardSmsMatcher::class)->handle($bot, bluBankSms('3650000'));
+    app(CardSmsMatcher::class)->handle($bot, bluBankSms('3650000'));
+
+    expect($attempt->fresh()->status)->toBeNull()
+        ->and(sentMessages())->toBe([[
+            'chat_id' => (int) $bot->bot_owner_peer_id,
+            'text' => '⚠️ '.__('tbe-gateway-card::settings.alerts.sms_no_bank'),
+        ]]);
 });
 
 it('never matches a pending attempt belonging to a different tenant', function () {
