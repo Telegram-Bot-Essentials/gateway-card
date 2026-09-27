@@ -6,6 +6,18 @@ stabilizes at 1.0 a `0.x` bump may carry breaking changes.
 
 ## [Unreleased]
 
+### Changed
+
+- Requires essence `^0.15` for `adminAlert()`, `tbeLog()->audit()` and
+  `tbeLog()->for()`.
+- A bank SMS that cannot be auto-verified because no bank is chosen, or the
+  billing currency is not IRR/IRT, now alerts the owner and admins (throttled)
+  instead of being dropped with a debug or warning log nobody reads.
+- An admin accepting or rejecting a card payment is an audit entry
+  (`Accepted card payment #8 of 365000`).
+- Log messages name the payment, invoice and amount they are about, and the
+  SMS auto-verify entry is bound to the member who paid.
+
 ## [0.1.14] - 2026-09-25
 
 ### Changed
