@@ -4,14 +4,14 @@ return [
     'labels' => [
         'billing' => 'Billing',
         'gateways' => 'Gateways',
-        'to_card' => 'To Card',
-        'status' => 'To Card Status',
-        'card_number' => 'Card Number',
-        'card_name' => 'Card Name',
-        'transactions_chat_id' => 'Transactions Chat ID',
-        'sms_bank' => 'SMS Auto-Verify Bank',
-        'sms_secret' => 'SMS Webhook Secret',
-        'unique_amount' => 'Unique Payment Amounts',
+        'to_card' => 'To card',
+        'status' => 'To card status',
+        'card_number' => 'Card number',
+        'card_name' => 'Card name',
+        'transactions_chat_id' => 'Transactions chat ID',
+        'sms_bank' => 'SMS auto-verify bank',
+        'sms_secret' => 'SMS webhook secret',
+        'unique_amount' => 'Unique payment amounts',
     ],
 
     'options' => [
