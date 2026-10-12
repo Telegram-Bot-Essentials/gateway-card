@@ -52,7 +52,7 @@ class CardPaymentAnswer extends StateAnswer
         $invoice->paymentAttempt->save();
 
         $invoice->messageMeta->lockAction(__('tbe-gateway-card::invoice.to_card.lock-keys.user-wait_for_payment_processing'));
-        wHook()->user()->changeState();
+        wHook()->conversation()->changeState();
         wHook()->api()->sendMessage([
             'chat_id' => wHook()->update()->message->from->id,
             'text' => __('tbe-gateway-card::invoice.to_card.text.user-payment_result'),
