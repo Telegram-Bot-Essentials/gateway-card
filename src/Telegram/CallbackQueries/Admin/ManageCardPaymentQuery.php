@@ -4,7 +4,6 @@ namespace TelegramBotEssentials\GatewayCard\Telegram\CallbackQueries\Admin;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Telegram\Bot\Exceptions\TelegramSDKException;
-use TelegramBotEssentials\Essence\Enums\Roles;
 use TelegramBotEssentials\Essence\Exceptions\LogicException;
 use TelegramBotEssentials\Essence\Telegram\CallbackQueries\CallbackQuery;
 use TelegramBotEssentials\GatewayCard\Models\ToCardAttempt;
@@ -14,7 +13,7 @@ class ManageCardPaymentQuery extends CallbackQuery
 {
     protected string $type = 'MANAGE_CARD_PAYMENT';
 
-    protected int $perm = Roles::ADMIN->value;
+    protected ?string $permission = 'gateway-card.payments.manage';
 
     public function acceptCardPayment(ToCardAttempt $toCardAttempt): void
     {
@@ -55,7 +54,7 @@ class ManageCardPaymentQuery extends CallbackQuery
         wHook()->api()->sendMessage([
             'chat_id' => wHook()->user()->telegramUser->peer_id,
             'text' => $text,
-            'reply_markup' => wHook()->user()->getKeyboard(),
+            'reply_markup' => replyKeyboard(),
             'reply_to_message_id' => $toCardAttempt->messageMeta->message_id,
         ]);
         $this->answer(__('tbe-gateway-card::invoice.to_card.answers.admin-rejecting_payment'));
