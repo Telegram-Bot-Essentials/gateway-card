@@ -36,7 +36,7 @@ class ManageCardPaymentQuery extends CallbackQuery
      */
     public function rejectCardPayment(ToCardAttempt $toCardAttempt): void
     {
-        wHook()->user()->changeState(
+        wHook()->conversation()->changeState(
             encodeAnswerState(
                 $this->type,
                 'reject_reason',
