@@ -6,6 +6,8 @@ stabilizes at 1.0 a `0.x` bump may carry breaking changes.
 
 ## [Unreleased]
 
+## [0.1.18] - 2026-10-12
+
 Requires essence 0.17, which replaces power levels with named permissions.
 
 ### Changed
