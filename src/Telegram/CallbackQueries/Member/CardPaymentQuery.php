@@ -73,7 +73,7 @@ class CardPaymentQuery extends CallbackQuery
             $text .= "\r\n\r\n".$offerSummary;
         }
 
-        wHook()->user()->changeState(
+        wHook()->conversation()->changeState(
             encodeAnswerState(
                 $this->type,
                 'pay_to_card',
