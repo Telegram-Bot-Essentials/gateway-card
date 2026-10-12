@@ -7,7 +7,6 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Telegram\Bot\Exceptions\TelegramSDKException;
 use TelegramBotEssentials\Billing\Models\Invoice;
 use TelegramBotEssentials\Billing\Telegram\Features\Member\InvoiceFeature;
-use TelegramBotEssentials\Essence\Enums\Roles;
 use TelegramBotEssentials\Essence\Exceptions\FeatureIsDisabled;
 use TelegramBotEssentials\Essence\Exceptions\LogicException;
 use TelegramBotEssentials\Essence\Telegram\CallbackQueries\CallbackQuery;
@@ -18,8 +17,6 @@ use TelegramBotEssentials\GatewayCard\Telegram\Features\Member\CardPaymentFeatur
 class CardPaymentQuery extends CallbackQuery
 {
     protected string $type = 'CARD_PAYMENT';
-
-    protected int $perm = Roles::MEMBER->value;
 
     /**
      * @throws BindingResolutionException
@@ -91,7 +88,7 @@ class CardPaymentQuery extends CallbackQuery
         wHook()->api()->sendMessage([
             'chat_id' => wHook()->user()->telegramUser->peer_id,
             'text' => $text,
-            'reply_markup' => wHook()->user()->getKeyboard(),
+            'reply_markup' => replyKeyboard(),
             'parse_mode' => 'HTML',
         ]);
         $this->answer(__('tbe-gateway-card::invoice.to_card.answers.attempting'));
