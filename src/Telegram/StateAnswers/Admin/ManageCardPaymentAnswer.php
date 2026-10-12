@@ -4,7 +4,6 @@ namespace TelegramBotEssentials\GatewayCard\Telegram\StateAnswers\Admin;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Telegram\Bot\Exceptions\TelegramSDKException;
-use TelegramBotEssentials\Essence\Enums\Roles;
 use TelegramBotEssentials\Essence\Exceptions\LogicException;
 use TelegramBotEssentials\Essence\Telegram\StateAnswers\StateAnswer;
 use TelegramBotEssentials\GatewayCard\Models\ToCardAttempt;
@@ -14,7 +13,7 @@ class ManageCardPaymentAnswer extends StateAnswer
 {
     protected string $type = 'MANAGE_CARD_PAYMENT';
 
-    protected int $perm = Roles::ADMIN->value;
+    protected ?string $permission = 'gateway-card.payments.manage';
 
     /**
      * @throws BindingResolutionException
@@ -39,7 +38,7 @@ class ManageCardPaymentAnswer extends StateAnswer
             'chat_id' => wHook()->update()->message->chat->id,
             'text' => __('tbe-gateway-card::invoice.to_card.text.admin-payment_rejected'),
             'reply_to_message_id' => $toCardAttempt->messageMeta->message_id,
-            'reply_markup' => wHook()->user()->getKeyboard(),
+            'reply_markup' => replyKeyboard(),
         ]);
 
         $text = __('tbe-gateway-card::invoice.to_card.text.user-payment_rejected', [
