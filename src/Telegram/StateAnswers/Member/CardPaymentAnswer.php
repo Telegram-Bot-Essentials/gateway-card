@@ -9,7 +9,6 @@ use Telegram\Bot\Keyboard\Keyboard;
 use TelegramBotEssentials\Billing\Models\Invoice;
 use TelegramBotEssentials\Billing\Telegram\Features\Member\InvoiceFeature;
 use TelegramBotEssentials\Essence\Enums\AllowableFields;
-use TelegramBotEssentials\Essence\Enums\Roles;
 use TelegramBotEssentials\Essence\Exceptions\LogicException;
 use TelegramBotEssentials\Essence\Telegram\StateAnswers\StateAnswer;
 use TelegramBotEssentials\GatewayCard\Models\ToCardAttempt;
@@ -19,8 +18,6 @@ use TelegramBotEssentials\GatewayCard\Telegram\Features\Member\CardPaymentFeatur
 class CardPaymentAnswer extends StateAnswer
 {
     protected string $type = 'CARD_PAYMENT';
-
-    protected int $perm = Roles::MEMBER->value;
 
     protected array $allowedFields = [AllowableFields::TEXT->value, AllowableFields::PHOTO->value];
 
@@ -59,7 +56,7 @@ class CardPaymentAnswer extends StateAnswer
         wHook()->api()->sendMessage([
             'chat_id' => wHook()->update()->message->from->id,
             'text' => __('tbe-gateway-card::invoice.to_card.text.user-payment_result'),
-            'reply_markup' => wHook()->user()->getKeyboard(),
+            'reply_markup' => replyKeyboard(),
         ]);
 
         $text = __('tbe-gateway-card::invoice.to_card.text.admin-payment_result', [
