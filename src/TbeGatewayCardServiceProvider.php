@@ -40,6 +40,8 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadTranslationsFrom(__DIR__.'/../lang', 'tbe-gateway-card');
 
+        permissionRegistry()->register('gateway-card.payments.manage', fn () => __('tbe-gateway-card::permissions.payments'), 'gateway-card');
+
         if (config('tbe-gateway-card.routes.enabled', true)) {
             Route::prefix(config('tbe-gateway-card.routes.api_prefix', 'api'))
                 ->group(__DIR__.'/../routes/api.php');
