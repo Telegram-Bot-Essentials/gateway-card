@@ -32,7 +32,7 @@ class ManageCardPaymentAnswer extends StateAnswer
             'amount' => $toCardAttempt->amount,
             'reject_reason' => $toCardAttempt->reject_reason,
         ]);
-        wHook()->user()->changeState();
+        wHook()->conversation()->changeState();
 
         wHook()->api()->sendMessage([
             'chat_id' => wHook()->update()->message->chat->id,
