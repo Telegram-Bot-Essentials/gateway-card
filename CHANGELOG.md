@@ -6,6 +6,8 @@ stabilizes at 1.0 a `0.x` bump may carry breaking changes.
 
 ## [Unreleased]
 
+## [0.1.22] - 2026-10-31
+
 ### Changed
 
 - Requires essence 0.19.0-beta.3. Alerts go out through `ownerAlert()`,
