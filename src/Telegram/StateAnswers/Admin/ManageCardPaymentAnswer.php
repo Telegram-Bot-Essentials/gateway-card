@@ -13,7 +13,7 @@ class ManageCardPaymentAnswer extends StateAnswer
 {
     protected string $type = 'MANAGE_CARD_PAYMENT';
 
-    protected ?string $permission = 'gateway-card.payments.manage';
+    protected ?string $ability = 'gateway-card.payments.manage';
 
     /**
      * @throws BindingResolutionException
