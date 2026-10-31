@@ -13,7 +13,7 @@ class ManageCardPaymentQuery extends CallbackQuery
 {
     protected string $type = 'MANAGE_CARD_PAYMENT';
 
-    protected ?string $permission = 'gateway-card.payments.manage';
+    protected ?string $ability = 'gateway-card.payments.manage';
 
     public function acceptCardPayment(ToCardAttempt $toCardAttempt): void
     {
