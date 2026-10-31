@@ -37,7 +37,7 @@ class CardSmsMatcher
         $parser = BankSmsParserFactory::make(settings()->get('billing.gateways.card.sms_bank'));
 
         if ($parser === null) {
-            adminAlert('gateway-card.sms.no_bank', fn () => __('tbe-gateway-card::settings.alerts.sms_no_bank'), $bot);
+            ownerAlert('gateway-card.sms.no_bank', fn () => __('tbe-gateway-card::settings.alerts.sms_no_bank'), $bot);
 
             return;
         }
@@ -56,7 +56,7 @@ class CardSmsMatcher
 
         if ($amount === null) {
             $currency = settings()->get('billing.currency');
-            adminAlert('gateway-card.sms.currency', fn () => __('tbe-gateway-card::settings.alerts.sms_currency', [
+            ownerAlert('gateway-card.sms.currency', fn () => __('tbe-gateway-card::settings.alerts.sms_currency', [
                 'currency' => is_string($currency) ? $currency : '-',
             ]), $bot);
 
