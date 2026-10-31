@@ -6,6 +6,18 @@ stabilizes at 1.0 a `0.x` bump may carry breaking changes.
 
 ## [Unreleased]
 
+### Changed
+
+- Requires essence 0.19. The admin handlers name a Laravel Gate ability
+  (`gateway-card.payments.manage`) instead of a permission, and nothing is registered with essence
+  any more: the app's Gate decides who holds it. Essence no longer lets the
+  bot owner through by default, so an app grants these with `Gate::before`
+  or `Gate::define`.
+
+### Removed
+
+- The permission labels (`lang/*/permissions.php`).
+
 ## [0.1.19] - 2026-10-12
 
 ### Changed
