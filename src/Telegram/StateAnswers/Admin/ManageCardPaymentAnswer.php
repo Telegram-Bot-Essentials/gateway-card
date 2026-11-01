@@ -4,6 +4,7 @@ namespace TelegramBotEssentials\GatewayCard\Telegram\StateAnswers\Admin;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Telegram\Bot\Exceptions\TelegramSDKException;
+use TelegramBotEssentials\Essence\Enums\ChatScope;
 use TelegramBotEssentials\Essence\Exceptions\LogicException;
 use TelegramBotEssentials\Essence\Telegram\StateAnswers\StateAnswer;
 use TelegramBotEssentials\GatewayCard\Models\ToCardAttempt;
@@ -14,6 +15,8 @@ class ManageCardPaymentAnswer extends StateAnswer
     protected string $type = 'MANAGE_CARD_PAYMENT';
 
     protected ?string $ability = 'gateway-card.payments.manage';
+
+    protected ChatScope $chatScope = ChatScope::Any;
 
     /**
      * @throws BindingResolutionException
@@ -34,10 +37,14 @@ class ManageCardPaymentAnswer extends StateAnswer
         ]);
         wHook()->conversation()->changeState();
 
+        // Reviewing from a channel, the reason comes from the private chat, and
+        // a reply cannot point at a message in another chat.
+        $inReviewChat = (int) $toCardAttempt->messageMeta->chat_id === (int) wHook()->update()->message->chat->id;
+
         wHook()->api()->sendMessage([
-            'chat_id' => wHook()->update()->message->chat->id,
+            ...wHook()->replyTo(),
             'text' => __('tbe-gateway-card::invoice.to_card.text.admin-payment_rejected'),
-            'reply_to_message_id' => $toCardAttempt->messageMeta->message_id,
+            ...($inReviewChat ? ['reply_to_message_id' => $toCardAttempt->messageMeta->message_id] : []),
             'reply_markup' => replyKeyboard(),
         ]);
 
