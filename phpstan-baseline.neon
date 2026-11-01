@@ -439,6 +439,12 @@ parameters:
 			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
 
 		-
+			message: '#^Cannot access property \$chat_id on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
+
+		-
 			message: '#^Cannot access property \$full_name on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -489,6 +495,12 @@ parameters:
 		-
 			message: '#^Cannot call method revertAction\(\) on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
 			identifier: method.nonObject
+			count: 1
+			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
 			count: 1
 			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
 
