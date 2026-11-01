@@ -4,6 +4,7 @@ namespace TelegramBotEssentials\GatewayCard\Telegram\CallbackQueries\Admin;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Telegram\Bot\Exceptions\TelegramSDKException;
+use TelegramBotEssentials\Essence\Enums\ChatScope;
 use TelegramBotEssentials\Essence\Exceptions\LogicException;
 use TelegramBotEssentials\Essence\Telegram\CallbackQueries\CallbackQuery;
 use TelegramBotEssentials\GatewayCard\Models\ToCardAttempt;
@@ -14,6 +15,9 @@ class ManageCardPaymentQuery extends CallbackQuery
     protected string $type = 'MANAGE_CARD_PAYMENT';
 
     protected ?string $ability = 'gateway-card.payments.manage';
+
+    // The transactions chat can be a private chat, a group or a channel.
+    protected ChatScope $chatScope = ChatScope::Any;
 
     public function acceptCardPayment(ToCardAttempt $toCardAttempt): void
     {
@@ -36,7 +40,13 @@ class ManageCardPaymentQuery extends CallbackQuery
      */
     public function rejectCardPayment(ToCardAttempt $toCardAttempt): void
     {
-        wHook()->conversation()->changeState(
+        // A channel cannot answer: nothing posted there comes from a user, so
+        // the reason is asked for in the reviewer's private chat instead.
+        $inChannel = wHook()->update()->callbackQuery?->message?->chat?->type === 'channel';
+
+        $conversation = $inChannel ? wHook()->user()->privateConversation() : wHook()->conversation();
+
+        $conversation->changeState(
             encodeAnswerState(
                 $this->type,
                 'reject_reason',
@@ -51,8 +61,12 @@ class ManageCardPaymentQuery extends CallbackQuery
             'toCardAttemptId' => $toCardAttempt->id,
         ]);
 
-        wHook()->api()->sendMessage([
+        wHook()->api()->sendMessage($inChannel ? [
             'chat_id' => wHook()->user()->telegramUser->peer_id,
+            'text' => $text,
+            'reply_markup' => replyKeyboard(),
+        ] : [
+            ...wHook()->replyTo(),
             'text' => $text,
             'reply_markup' => replyKeyboard(),
             'reply_to_message_id' => $toCardAttempt->messageMeta->message_id,
