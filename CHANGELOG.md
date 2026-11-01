@@ -6,6 +6,12 @@ stabilizes at 1.0 a `0.x` bump may carry breaking changes.
 
 ## [Unreleased]
 
+### Fixed
+
+- Accepting and rejecting a card payment works from a group or a channel, not
+  only a private chat. From a channel, the rejection reason is asked for in the
+  reviewer's private chat, since a channel cannot answer.
+
 ## [0.1.23] - 2026-11-01
 
 ### Added
