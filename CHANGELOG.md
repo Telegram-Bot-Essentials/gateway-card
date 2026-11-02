@@ -6,6 +6,8 @@ stabilizes at 1.0 a `0.x` bump may carry breaking changes.
 
 ## [Unreleased]
 
+## [0.1.24] - 2026-11-02
+
 ### Fixed
 
 - Accepting and rejecting a card payment works from a group or a channel, not
