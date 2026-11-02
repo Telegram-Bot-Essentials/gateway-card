@@ -409,7 +409,7 @@ parameters:
 			path: src/Telegram/CallbackQueries/Member/CardPaymentQuery.php
 
 		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\>\|TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\:\:\$messageMeta\.$#'
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<\(int\|string\), TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\>\|TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\:\:\$messageMeta\.$#'
 			identifier: property.notFound
 			count: 1
 			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
@@ -511,13 +511,13 @@ parameters:
 			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
 
 		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, TelegramBotEssentials\\Billing\\Models\\Invoice\>\|TelegramBotEssentials\\Billing\\Models\\Invoice\:\:\$messageMeta\.$#'
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<\(int\|string\), TelegramBotEssentials\\Billing\\Models\\Invoice\>\|TelegramBotEssentials\\Billing\\Models\\Invoice\:\:\$messageMeta\.$#'
 			identifier: property.notFound
 			count: 1
 			path: src/Telegram/StateAnswers/Member/CardPaymentAnswer.php
 
 		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, TelegramBotEssentials\\Billing\\Models\\Invoice\>\|TelegramBotEssentials\\Billing\\Models\\Invoice\:\:\$paymentAttempt\.$#'
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<\(int\|string\), TelegramBotEssentials\\Billing\\Models\\Invoice\>\|TelegramBotEssentials\\Billing\\Models\\Invoice\:\:\$paymentAttempt\.$#'
 			identifier: property.notFound
 			count: 1
 			path: src/Telegram/StateAnswers/Member/CardPaymentAnswer.php
