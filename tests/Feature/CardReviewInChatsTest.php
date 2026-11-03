@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Http;
 use TelegramBotEssentials\Essence\Models\BotUser;
@@ -116,4 +117,22 @@ it('rejects from a private chat, as before', function () {
     $this->postWebhookUpdate($this->bot, $this->makeMessageUpdate('blurry photo', REVIEWER))->assertOk();
 
     expect($this->attempt->fresh()->reject_reason)->toBe('blurry photo');
+});
+
+it('finishes the admin\'s review when the member cannot be reached', function () {
+    $member = (int) $this->attempt->invoice->botUser->telegram_user_peer_id;
+    $factory = new Factory;
+    $factory->fake(function ($request) use ($member) {
+        return (int) ($request['chat_id'] ?? 0) === $member
+            ? Http::response(['ok' => false, 'error_code' => 403, 'description' => 'Forbidden: bot was blocked by the user'], 403)
+            : Http::response(['ok' => true, 'result' => ['message_id' => 1, 'date' => 1, 'chat' => ['id' => 1, 'type' => 'private']]]);
+    });
+    Http::swap($factory);
+
+    reviewButton('acceptCardPayment', $this->attempt, REVIEWER, 'private');
+
+    expect($this->attempt->fresh()->invoice->status)->toBe('paid');
+    Http::assertSent(fn ($request) => str_ends_with($request->url(), '/answerCallbackQuery'));
+    Http::assertNotSent(fn ($request) => str_ends_with($request->url(), '/sendMessage')
+        && str_contains((string) $request['text'], 'Something went wrong'));
 });
