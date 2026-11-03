@@ -55,6 +55,7 @@ class ManageCardPaymentAnswer extends StateAnswer
         wHook()->api()->sendMessage([
             'chat_id' => $toCardAttempt->invoice->botUser->telegramUser->peer_id,
             'text' => $text,
+            ...$toCardAttempt->invoice->replyToView(),
         ]);
 
         $toCardAttempt->messageMeta->lockAction(__('tbe-gateway-card::invoice.to_card.lock-keys.admin-payment_rejected_by', [
