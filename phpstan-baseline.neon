@@ -211,12 +211,6 @@ parameters:
 			path: src/Services/CardSmsMatcher.php
 
 		-
-			message: '#^Cannot call method lockAction\(\) on TelegramBotEssentials\\Essence\\Models\\MessageMeta\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/Services/CardSmsMatcher.php
-
-		-
 			message: '#^Parameter \#1 \$bank of static method TelegramBotEssentials\\GatewayCard\\Services\\SmsParsers\\BankSmsParserFactory\:\:make\(\) expects string\|null, mixed given\.$#'
 			identifier: argument.type
 			count: 1
