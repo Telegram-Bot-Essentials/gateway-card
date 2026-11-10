@@ -8,6 +8,7 @@ use TelegramBotEssentials\Essence\Enums\ChatScope;
 use TelegramBotEssentials\Essence\Exceptions\LogicException;
 use TelegramBotEssentials\Essence\Telegram\StateAnswers\StateAnswer;
 use TelegramBotEssentials\GatewayCard\Models\ToCardAttempt;
+use TelegramBotEssentials\GatewayCard\Services\CardReview;
 use TelegramBotEssentials\GatewayCard\Telegram\Features\Member\CardPaymentFeature;
 
 class ManageCardPaymentAnswer extends StateAnswer
@@ -25,17 +26,18 @@ class ManageCardPaymentAnswer extends StateAnswer
      */
     public function rejectReason(ToCardAttempt $toCardAttempt): void
     {
-        $toCardAttempt->attemptFailed();
-
-        $toCardAttempt->reject_reason = wHook()->update()->message->text;
-        $toCardAttempt->save();
-
-        tbeLog('gateway-card')->audit('Rejected card payment #{attempt_id} of {amount}: {reject_reason}', [
-            'attempt_id' => $toCardAttempt->getKey(),
-            'amount' => $toCardAttempt->amount,
-            'reject_reason' => $toCardAttempt->reject_reason,
-        ]);
+        $rejected = app(CardReview::class)->reject($toCardAttempt, wHook()->user(), (string) wHook()->update()->message->text);
         wHook()->conversation()->changeState();
+
+        if (! $rejected) {
+            wHook()->api()->sendMessage([
+                ...wHook()->replyTo(),
+                'text' => __('tbe-gateway-card::invoice.to_card.answers.admin-already_handled'),
+                'reply_markup' => replyKeyboard(),
+            ]);
+
+            return;
+        }
 
         // Reviewing from a channel, the reason comes from the private chat, and
         // a reply cannot point at a message in another chat.
@@ -47,19 +49,6 @@ class ManageCardPaymentAnswer extends StateAnswer
             ...($inReviewChat ? ['reply_to_message_id' => $toCardAttempt->messageMeta->message_id] : []),
             'reply_markup' => replyKeyboard(),
         ]);
-
-        $text = __('tbe-gateway-card::invoice.to_card.text.user-payment_rejected', [
-            'rejectionReason' => $toCardAttempt->reject_reason,
-        ]);
-
-        wHook()->api()->sendMessage([
-            'chat_id' => $toCardAttempt->invoice->botUser->telegramUser->peer_id,
-            'text' => $text,
-        ]);
-
-        $toCardAttempt->messageMeta->lockAction(__('tbe-gateway-card::invoice.to_card.lock-keys.admin-payment_rejected_by', [
-            'adminName' => wHook()->user()->telegramUser->full_name]), customEmoji: '❌');
-        $toCardAttempt->invoice->messageMeta->lockAction(__('tbe-gateway-card::invoice.to_card.lock-keys.user-payment_rejected'), '❌');
     }
 
     public function cancel(): void
