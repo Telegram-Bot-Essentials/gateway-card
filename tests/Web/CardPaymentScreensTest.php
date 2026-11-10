@@ -14,6 +14,7 @@ use TelegramBotEssentials\Essence\Web\WebAccounts;
 use TelegramBotEssentials\GatewayCard\Models\ToCardAttempt;
 use TelegramBotEssentials\GatewayCard\Models\UnmatchedCardSms;
 use TelegramBotEssentials\GatewayCard\Services\CardReview;
+use TelegramBotEssentials\GatewayCard\Services\CardSmsMatcher;
 use TelegramBotEssentials\GatewayCard\Web\Manage\ViewCardPayment;
 use TelegramBotEssentials\GatewayCard\Web\Widgets\CardPaymentStats;
 
@@ -104,6 +105,19 @@ it('settles a payment once, whoever accepts it second', function () {
     Livewire::test(ViewCardPayment::class, ['record' => $this->attempt->id])
         ->assertActionHidden('accept')
         ->assertActionHidden('reject');
+});
+
+it('leaves a payment a reviewer accepted to them when its bank SMS arrives', function () {
+    $actor = $this->enterPanel('manage', $this->bot, $this->account);
+    settings()->set('billing.gateways.card.sms_bank', 'blu_bank');
+    settings()->set('billing.currency', 'IRT');
+    app(CardReview::class)->accept($this->attempt, $actor);
+    UnmatchedCardSms::create(['bot_id' => $this->bot->id, 'amount' => '365000', 'raw_text' => 'Deposit', 'received_at' => now()]);
+
+    app(CardSmsMatcher::class)->matchPendingSms($this->attempt->fresh());
+
+    expect($this->attempt->fresh()->received_amount)->toBeNull()
+        ->and($this->attempt->fresh()->status)->toBe('succeed');
 });
 
 it('rejects with a reason the member is told', function () {
