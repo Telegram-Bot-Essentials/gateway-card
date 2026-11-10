@@ -8,6 +8,7 @@ use TelegramBotEssentials\Essence\Enums\ChatScope;
 use TelegramBotEssentials\Essence\Exceptions\LogicException;
 use TelegramBotEssentials\Essence\Telegram\CallbackQueries\CallbackQuery;
 use TelegramBotEssentials\GatewayCard\Models\ToCardAttempt;
+use TelegramBotEssentials\GatewayCard\Services\CardReview;
 use TelegramBotEssentials\GatewayCard\Telegram\Features\Member\CardPaymentFeature;
 
 class ManageCardPaymentQuery extends CallbackQuery
@@ -21,15 +22,12 @@ class ManageCardPaymentQuery extends CallbackQuery
 
     public function acceptCardPayment(ToCardAttempt $toCardAttempt): void
     {
-        $toCardAttempt->attemptSucceed();
+        if (! app(CardReview::class)->accept($toCardAttempt, wHook()->user())) {
+            $this->answer(__('tbe-gateway-card::invoice.to_card.answers.admin-already_handled'));
 
-        tbeLog('gateway-card')->audit('Accepted card payment #{attempt_id} of {amount}', [
-            'attempt_id' => $toCardAttempt->getKey(),
-            'amount' => $toCardAttempt->amount,
-        ]);
+            return;
+        }
 
-        $toCardAttempt->messageMeta->lockAction(__('tbe-gateway-card::invoice.to_card.lock-keys.admin-payment_accepted_by', [
-            'adminName' => wHook()->user()->telegramUser->full_name]), customEmoji: '✅');
         $this->answer(__('tbe-gateway-card::invoice.to_card.answers.admin-payment_accepted'));
     }
 
@@ -40,6 +38,12 @@ class ManageCardPaymentQuery extends CallbackQuery
      */
     public function rejectCardPayment(ToCardAttempt $toCardAttempt): void
     {
+        if (! app(CardReview::class)->isPending($toCardAttempt)) {
+            $this->answer(__('tbe-gateway-card::invoice.to_card.answers.admin-already_handled'));
+
+            return;
+        }
+
         // A channel cannot answer: nothing posted there comes from a user, so
         // the reason is asked for in the reviewer's private chat instead.
         $inChannel = wHook()->update()->callbackQuery?->message?->chat?->type === 'channel';
