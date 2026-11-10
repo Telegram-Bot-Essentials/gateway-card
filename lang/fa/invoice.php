@@ -31,6 +31,7 @@ return [
         'answers' => [
             'admin-rejecting_payment' => 'دلیل رد پرداخت را بفرستید',
             'admin-payment_accepted' => 'پرداخت تأیید شد',
+            'admin-already_handled' => 'این پرداخت قبلاً بررسی شده است.',
             'attempting' => '⏳ در حال آماده‌سازی پرداخت…',
         ],
         'keys' => [
