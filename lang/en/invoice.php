@@ -31,6 +31,7 @@ return [
         'answers' => [
             'admin-rejecting_payment' => 'Send the rejection reason',
             'admin-payment_accepted' => 'Payment accepted',
+            'admin-already_handled' => 'Someone already handled this payment.',
             'attempting' => 'Setting up your card payment…',
         ],
         'keys' => [
