@@ -5,8 +5,16 @@ namespace TelegramBotEssentials\GatewayCard\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Prunable;
+use Illuminate\Support\Carbon;
 use TelegramBotEssentials\GatewayCard\Services\CardSmsMatcher;
 
+/**
+ * @property int $id
+ * @property int $bot_id
+ * @property string $amount
+ * @property string $raw_text
+ * @property Carbon $received_at
+ */
 class UnmatchedCardSms extends Model
 {
     use Prunable;

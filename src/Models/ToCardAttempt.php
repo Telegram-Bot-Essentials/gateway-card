@@ -3,12 +3,28 @@
 namespace TelegramBotEssentials\GatewayCard\Models;
 
 use Brick\Math\BigDecimal;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use TelegramBotEssentials\Billing\Models\Abstract\PaymentAttempt;
+use TelegramBotEssentials\Billing\Models\Invoice;
+use TelegramBotEssentials\Essence\Models\MessageMeta;
 use TelegramBotEssentials\Essence\Support\WebhookContext;
 use TelegramBotEssentials\Essence\Traits\HasMessageMeta;
 use TelegramBotEssentials\GatewayCard\Services\UniqueAmountResolver;
 
+/**
+ * @property int $id
+ * @property string $card_number
+ * @property string $amount
+ * @property string|null $received_amount
+ * @property Carbon|string|null $received_at
+ * @property string|null $info_text
+ * @property string|null $info_photo_path
+ * @property string|null $reject_reason
+ * @property string|null $status
+ * @property-read Invoice|null $invoice
+ * @property-read MessageMeta|null $messageMeta
+ */
 class ToCardAttempt extends PaymentAttempt
 {
     use HasMessageMeta;
