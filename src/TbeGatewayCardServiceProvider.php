@@ -19,6 +19,7 @@ use TelegramBotEssentials\GatewayCard\Telegram\CallbackQueries\Member\CardPaymen
 use TelegramBotEssentials\GatewayCard\Telegram\Features\Member\CardPaymentFeature;
 use TelegramBotEssentials\GatewayCard\Telegram\StateAnswers\Admin\ManageCardPaymentAnswer;
 use TelegramBotEssentials\GatewayCard\Telegram\StateAnswers\Member\CardPaymentAnswer;
+use TelegramBotEssentials\GatewayCard\Web\GatewayCardManagePlugin;
 use TelegramBotEssentials\Settings\DTOs\Setting;
 use TelegramBotEssentials\Settings\Enums\SettingType;
 
@@ -26,6 +27,9 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        // Class names only: Filament is loaded only where the app installed it.
+        webPanels()->manage(GatewayCardManagePlugin::class);
+
         $this->mergeConfigFrom(__DIR__.'/../config/tbe-gateway-card.php', 'tbe-gateway-card');
     }
 
@@ -39,6 +43,7 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
 
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadTranslationsFrom(__DIR__.'/../lang', 'tbe-gateway-card');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'tbe-gateway-card');
 
         if (config('tbe-gateway-card.routes.enabled', true)) {
             Route::prefix(config('tbe-gateway-card.routes.api_prefix', 'api'))
