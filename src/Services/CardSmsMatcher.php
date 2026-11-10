@@ -4,6 +4,7 @@ namespace TelegramBotEssentials\GatewayCard\Services;
 
 use Brick\Math\BigDecimal;
 use Brick\Math\RoundingMode;
+use Illuminate\Support\Facades\DB;
 use TelegramBotEssentials\Essence\Models\Bot;
 use TelegramBotEssentials\Essence\Support\WebhookContext;
 use TelegramBotEssentials\GatewayCard\Models\ToCardAttempt;
@@ -148,12 +149,28 @@ class CardSmsMatcher
             ))->apply();
         }
 
-        $toCardAttempt->received_amount = $amount;
-        $toCardAttempt->save();
+        // Locked like a reviewer's accept, so an SMS and a reviewer at the same
+        // moment settle the payment once.
+        $accepted = DB::transaction(function () use ($toCardAttempt, $amount): bool {
+            $locked = app(CardReview::class)->lockPending($toCardAttempt);
+            if ($locked === null) {
+                return false;
+            }
 
-        $toCardAttempt->attemptSucceed();
+            $locked->received_amount = $amount;
+            $locked->save();
+            $locked->attemptSucceed();
 
-        $toCardAttempt->messageMeta->lockAction(
+            return true;
+        });
+
+        if (! $accepted) {
+            return;
+        }
+
+        $toCardAttempt->refresh();
+
+        $toCardAttempt->messageMeta?->lockAction(
             __('tbe-gateway-card::invoice.to_card.lock-keys.auto_verified_by_sms'),
             customEmoji: '✅'
         );

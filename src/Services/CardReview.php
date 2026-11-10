@@ -122,7 +122,11 @@ class CardReview
         return is_string($name) ? $name : '';
     }
 
-    private function lockPending(ToCardAttempt $attempt): ?ToCardAttempt
+    /**
+     * The attempt, locked, while it is still pending; null once handled. Call
+     * it inside a transaction, which holds the lock until the change is saved.
+     */
+    public function lockPending(ToCardAttempt $attempt): ?ToCardAttempt
     {
         $locked = ToCardAttempt::query()->whereKey($attempt->getKey())->lockForUpdate()->first();
 
