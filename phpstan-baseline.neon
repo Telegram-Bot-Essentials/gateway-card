@@ -85,49 +85,31 @@ parameters:
 			path: src/Http/Controllers/CardSmsWebhookController.php
 
 		-
-			message: '#^Access to an undefined property TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\:\:\$amount\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Models/ToCardAttempt.php
-
-		-
-			message: '#^Access to an undefined property TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\:\:\$info_photo_path\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Models/ToCardAttempt.php
-
-		-
-			message: '#^Access to an undefined property TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\:\:\$status\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Models/ToCardAttempt.php
-
-		-
-			message: '#^Cannot access property \$bot on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$bot on TelegramBotEssentials\\Billing\\Models\\Invoice\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: src/Models/ToCardAttempt.php
 
 		-
-			message: '#^Cannot access property \$botUser on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$botUser on TelegramBotEssentials\\Billing\\Models\\Invoice\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: src/Models/ToCardAttempt.php
 
 		-
-			message: '#^Cannot access property \$bot_id on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$bot_id on TelegramBotEssentials\\Billing\\Models\\Invoice\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: src/Models/ToCardAttempt.php
 
 		-
-			message: '#^Cannot access property \$bot_user_id on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$bot_user_id on TelegramBotEssentials\\Billing\\Models\\Invoice\|null\.$#'
 			identifier: property.nonObject
 			count: 2
 			path: src/Models/ToCardAttempt.php
 
 		-
-			message: '#^Cannot access property \$price on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$price on TelegramBotEssentials\\Billing\\Models\\Invoice\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: src/Models/ToCardAttempt.php
@@ -151,31 +133,13 @@ parameters:
 			path: src/Models/ToCardAttempt.php
 
 		-
-			message: '#^Parameter \#1 \$path of method Illuminate\\Filesystem\\FilesystemAdapter\:\:exists\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Models/ToCardAttempt.php
-
-		-
-			message: '#^Parameter \#1 \$path of method Illuminate\\Filesystem\\FilesystemAdapter\:\:get\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Models/ToCardAttempt.php
-
-		-
 			message: '#^Parameter \#1 \$that of method Brick\\Math\\BigDecimal\:\:minus\(\) expects Brick\\Math\\BigNumber\|int\|string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Models/ToCardAttempt.php
 
 		-
-			message: '#^Parameter \#1 \$value of static method Brick\\Math\\BigNumber\:\:of\(\) expects Brick\\Math\\BigNumber\|int\|string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Models/ToCardAttempt.php
-
-		-
-			message: '#^Parameter \$bot of class TelegramBotEssentials\\Essence\\Support\\WebhookContext constructor expects TelegramBotEssentials\\Essence\\Models\\Bot\|null, mixed given\.$#'
+			message: '#^Parameter \$bot of class TelegramBotEssentials\\Essence\\Support\\WebhookContext constructor expects TelegramBotEssentials\\Essence\\Models\\Bot\|null, Illuminate\\Database\\Eloquent\\Model\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Models/ToCardAttempt.php
@@ -187,7 +151,7 @@ parameters:
 			path: src/Models/ToCardAttempt.php
 
 		-
-			message: '#^Parameter \$botUser of class TelegramBotEssentials\\Essence\\Support\\WebhookContext constructor expects TelegramBotEssentials\\Essence\\Models\\BotUser\|null, mixed given\.$#'
+			message: '#^Parameter \$botUser of class TelegramBotEssentials\\Essence\\Support\\WebhookContext constructor expects TelegramBotEssentials\\Essence\\Models\\BotUser\|null, Illuminate\\Database\\Eloquent\\Model\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Models/ToCardAttempt.php
@@ -211,43 +175,31 @@ parameters:
 			path: src/Services/CardSmsMatcher.php
 
 		-
-			message: '#^Access to an undefined property TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\:\:\$amount\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Services/CardSmsMatcher.php
-
-		-
-			message: '#^Access to an undefined property TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\:\:\$received_amount\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Services/CardSmsMatcher.php
-
-		-
 			message: '#^Cannot access property \$amount on TelegramBotEssentials\\GatewayCard\\Models\\UnmatchedCardSms\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: src/Services/CardSmsMatcher.php
 
 		-
-			message: '#^Cannot access property \$bot on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$bot on TelegramBotEssentials\\Billing\\Models\\Invoice\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: src/Services/CardSmsMatcher.php
 
 		-
-			message: '#^Cannot access property \$botUser on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$botUser on TelegramBotEssentials\\Billing\\Models\\Invoice\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: src/Services/CardSmsMatcher.php
 
 		-
-			message: '#^Cannot access property \$bot_id on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$bot_id on TelegramBotEssentials\\Billing\\Models\\Invoice\|null\.$#'
 			identifier: property.nonObject
 			count: 2
 			path: src/Services/CardSmsMatcher.php
 
 		-
-			message: '#^Cannot access property \$bot_user_id on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$bot_user_id on TelegramBotEssentials\\Billing\\Models\\Invoice\|null\.$#'
 			identifier: property.nonObject
 			count: 2
 			path: src/Services/CardSmsMatcher.php
@@ -259,7 +211,7 @@ parameters:
 			path: src/Services/CardSmsMatcher.php
 
 		-
-			message: '#^Cannot call method lockAction\(\) on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot call method lockAction\(\) on TelegramBotEssentials\\Essence\\Models\\MessageMeta\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: src/Services/CardSmsMatcher.php
@@ -283,13 +235,7 @@ parameters:
 			path: src/Services/CardSmsMatcher.php
 
 		-
-			message: '#^Parameter \#2 \$amount of method TelegramBotEssentials\\GatewayCard\\Services\\CardSmsMatcher\:\:autoAccept\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Services/CardSmsMatcher.php
-
-		-
-			message: '#^Parameter \$bot of class TelegramBotEssentials\\Essence\\Support\\WebhookContext constructor expects TelegramBotEssentials\\Essence\\Models\\Bot\|null, mixed given\.$#'
+			message: '#^Parameter \$bot of class TelegramBotEssentials\\Essence\\Support\\WebhookContext constructor expects TelegramBotEssentials\\Essence\\Models\\Bot\|null, Illuminate\\Database\\Eloquent\\Model\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Services/CardSmsMatcher.php
@@ -301,7 +247,7 @@ parameters:
 			path: src/Services/CardSmsMatcher.php
 
 		-
-			message: '#^Parameter \$botUser of class TelegramBotEssentials\\Essence\\Support\\WebhookContext constructor expects TelegramBotEssentials\\Essence\\Models\\BotUser\|null, mixed given\.$#'
+			message: '#^Parameter \$botUser of class TelegramBotEssentials\\Essence\\Support\\WebhookContext constructor expects TelegramBotEssentials\\Essence\\Models\\BotUser\|null, Illuminate\\Database\\Eloquent\\Model\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Services/CardSmsMatcher.php
@@ -319,19 +265,7 @@ parameters:
 			path: src/TbeGatewayCardServiceProvider.php
 
 		-
-			message: '#^Access to an undefined property TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\:\:\$amount\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Telegram/CallbackQueries/Admin/ManageCardPaymentQuery.php
-
-		-
-			message: '#^Cannot access property \$full_name on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/Telegram/CallbackQueries/Admin/ManageCardPaymentQuery.php
-
-		-
-			message: '#^Cannot access property \$message_id on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$message_id on TelegramBotEssentials\\Essence\\Models\\MessageMeta\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: src/Telegram/CallbackQueries/Admin/ManageCardPaymentQuery.php
@@ -343,25 +277,13 @@ parameters:
 			path: src/Telegram/CallbackQueries/Admin/ManageCardPaymentQuery.php
 
 		-
-			message: '#^Cannot call method lockAction\(\) on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot call method lockAction\(\) on TelegramBotEssentials\\Essence\\Models\\MessageMeta\|null\.$#'
 			identifier: method.nonObject
-			count: 2
-			path: src/Telegram/CallbackQueries/Admin/ManageCardPaymentQuery.php
-
-		-
-			message: '#^Parameter \#2 \$replace of function __ expects array\<string, bool\|\(Closure\(string\)\: string\)\|float\|int\|string\|null\>, array\{adminName\: mixed\} given\.$#'
-			identifier: argument.type
 			count: 1
 			path: src/Telegram/CallbackQueries/Admin/ManageCardPaymentQuery.php
 
 		-
 			message: '#^Access to an undefined property TelegramBotEssentials\\Billing\\Models\\Invoice\:\:\$price\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Telegram/CallbackQueries/Member/CardPaymentQuery.php
-
-		-
-			message: '#^Access to an undefined property TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\:\:\$amount\.$#'
 			identifier: property.notFound
 			count: 1
 			path: src/Telegram/CallbackQueries/Member/CardPaymentQuery.php
@@ -409,26 +331,8 @@ parameters:
 			path: src/Telegram/CallbackQueries/Member/CardPaymentQuery.php
 
 		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\>\|TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\:\:\$messageMeta\.$#'
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<\(int\|string\), TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\>\|TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\:\:\$messageMeta\.$#'
 			identifier: property.notFound
-			count: 1
-			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
-
-		-
-			message: '#^Access to an undefined property TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\:\:\$amount\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
-
-		-
-			message: '#^Access to an undefined property TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\:\:\$reject_reason\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
-
-		-
-			message: '#^Cannot access property \$botUser on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
-			identifier: property.nonObject
 			count: 1
 			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
 
@@ -439,37 +343,13 @@ parameters:
 			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
 
 		-
-			message: '#^Cannot access property \$chat_id on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot access property \$chat_id on TelegramBotEssentials\\Essence\\Models\\MessageMeta\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
 
 		-
-			message: '#^Cannot access property \$full_name on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
-
-		-
-			message: '#^Cannot access property \$messageMeta on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
-
-		-
-			message: '#^Cannot access property \$message_id on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
-
-		-
-			message: '#^Cannot access property \$peer_id on mixed\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
-
-		-
-			message: '#^Cannot access property \$telegramUser on mixed\.$#'
+			message: '#^Cannot access property \$message_id on TelegramBotEssentials\\Essence\\Models\\MessageMeta\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
@@ -481,19 +361,7 @@ parameters:
 			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
 
 		-
-			message: '#^Cannot call method lockAction\(\) on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
-
-		-
-			message: '#^Cannot call method lockAction\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
-
-		-
-			message: '#^Cannot call method revertAction\(\) on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			message: '#^Cannot call method revertAction\(\) on TelegramBotEssentials\\Essence\\Models\\MessageMeta\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
@@ -505,37 +373,19 @@ parameters:
 			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
 
 		-
-			message: '#^Parameter \#2 \$replace of function __ expects array\<string, bool\|\(Closure\(string\)\: string\)\|float\|int\|string\|null\>, array\{adminName\: mixed\} given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Telegram/StateAnswers/Admin/ManageCardPaymentAnswer.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, TelegramBotEssentials\\Billing\\Models\\Invoice\>\|TelegramBotEssentials\\Billing\\Models\\Invoice\:\:\$messageMeta\.$#'
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<\(int\|string\), TelegramBotEssentials\\Billing\\Models\\Invoice\>\|TelegramBotEssentials\\Billing\\Models\\Invoice\:\:\$messageMeta\.$#'
 			identifier: property.notFound
 			count: 1
 			path: src/Telegram/StateAnswers/Member/CardPaymentAnswer.php
 
 		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, TelegramBotEssentials\\Billing\\Models\\Invoice\>\|TelegramBotEssentials\\Billing\\Models\\Invoice\:\:\$paymentAttempt\.$#'
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<\(int\|string\), TelegramBotEssentials\\Billing\\Models\\Invoice\>\|TelegramBotEssentials\\Billing\\Models\\Invoice\:\:\$paymentAttempt\.$#'
 			identifier: property.notFound
 			count: 1
 			path: src/Telegram/StateAnswers/Member/CardPaymentAnswer.php
 
 		-
 			message: '#^Access to an undefined property TelegramBotEssentials\\Billing\\Models\\Invoice\:\:\$price\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Telegram/StateAnswers/Member/CardPaymentAnswer.php
-
-		-
-			message: '#^Access to an undefined property TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\:\:\$info_photo_path\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Telegram/StateAnswers/Member/CardPaymentAnswer.php
-
-		-
-			message: '#^Access to an undefined property TelegramBotEssentials\\GatewayCard\\Models\\ToCardAttempt\:\:\$info_text\.$#'
 			identifier: property.notFound
 			count: 1
 			path: src/Telegram/StateAnswers/Member/CardPaymentAnswer.php
