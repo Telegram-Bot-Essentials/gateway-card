@@ -83,7 +83,7 @@ class CardPaymentResource extends PanelResource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->label('#')->sortable(),
+                TextColumn::make('id')->label('#')->sortable()->copyable(),
                 TextColumn::make('member')->label((string) __('tbe-gateway-card::web.member'))
                     ->state(fn (ToCardAttempt $record): string => self::memberName(CardReview::buyerOf($record))),
                 TextColumn::make('amount')->label((string) __('tbe-gateway-card::web.amount'))
