@@ -8,9 +8,12 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use TelegramBotEssentials\Essence\Web\Filament\PanelDates;
+use TelegramBotEssentials\Essence\Web\Filament\PanelGroup;
 use TelegramBotEssentials\Essence\Web\Filament\PanelResource;
 use TelegramBotEssentials\GatewayCard\Models\UnmatchedCardSms;
 use TelegramBotEssentials\GatewayCard\Services\CardSmsMatcher;
+use UnitEnum;
 
 /**
  * Bank SMS that matched no single pending payment, kept for the matching
@@ -28,6 +31,8 @@ class UnmatchedSmsResource extends PanelResource
     protected static bool $isScopedToTenant = false;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChatBubbleBottomCenterText;
+
+    protected static string|UnitEnum|null $navigationGroup = PanelGroup::Sales;
 
     public static function getNavigationLabel(): string
     {
@@ -58,9 +63,12 @@ class UnmatchedSmsResource extends PanelResource
                 TextColumn::make('amount')->label((string) __('tbe-gateway-card::web.amount'))
                     ->formatStateUsing(fn (mixed $state): string => CardPaymentResource::money($state))->sortable(),
                 TextColumn::make('raw_text')->label((string) __('tbe-gateway-card::web.sms_text'))->wrap()->limit(200),
-                TextColumn::make('received_at')->label((string) __('tbe-gateway-card::web.received'))->since()->sortable(),
+                PanelDates::since(TextColumn::make('received_at'))->label((string) __('tbe-gateway-card::web.received'))->sortable(),
             ])
-            ->defaultSort('received_at', 'desc');
+            ->defaultSort('received_at', 'desc')
+            ->persistFiltersInSession()
+            ->persistSearchInSession()
+            ->emptyStateHeading((string) __('tbe-gateway-card::web.empty.sms'));
     }
 
     public static function getPages(): array

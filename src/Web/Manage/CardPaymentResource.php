@@ -11,11 +11,14 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use TelegramBotEssentials\Billing\Models\Invoice;
 use TelegramBotEssentials\Essence\Models\BotUser;
-use TelegramBotEssentials\Essence\Models\TelegramUser;
+use TelegramBotEssentials\Essence\Web\Filament\PanelDates;
+use TelegramBotEssentials\Essence\Web\Filament\PanelGroup;
+use TelegramBotEssentials\Essence\Web\Filament\PanelMembers;
 use TelegramBotEssentials\Essence\Web\Filament\PanelResource;
 use TelegramBotEssentials\GatewayCard\Models\ToCardAttempt;
 use TelegramBotEssentials\GatewayCard\Services\CardReview;
 use TelegramBotEssentials\GatewayCard\Web\Widgets\CardPaymentStats;
+use UnitEnum;
 
 /**
  * Card-to-card payments, waiting for review first. Accepting and rejecting go
@@ -34,6 +37,8 @@ class CardPaymentResource extends PanelResource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCreditCard;
 
+    protected static string|UnitEnum|null $navigationGroup = PanelGroup::Sales;
+
     public static function getNavigationLabel(): string
     {
         return (string) __('tbe-gateway-card::web.nav');
@@ -49,6 +54,12 @@ class CardPaymentResource extends PanelResource
         return (string) __('tbe-gateway-card::web.nav');
     }
 
+    /** Payments waiting for review; counted inside the current bot only. */
+    public static function waitingCount(): int
+    {
+        return self::waiting(static::getEloquentQuery())->count();
+    }
+
     /** @return Builder<ToCardAttempt> */
     public static function getEloquentQuery(): Builder
     {
@@ -57,18 +68,6 @@ class CardPaymentResource extends PanelResource
         return ToCardAttempt::query()
             ->whereHas('invoice', fn (Builder $invoice): Builder => $invoice->where('bot_id', $botId))
             ->with('invoice.botUser.telegramUser');
-    }
-
-    public static function getNavigationBadge(): ?string
-    {
-        $waiting = self::waiting(static::getEloquentQuery())->count();
-
-        return $waiting > 0 ? (string) $waiting : null;
-    }
-
-    public static function getNavigationBadgeColor(): ?string
-    {
-        return 'warning';
     }
 
     /**
@@ -94,7 +93,7 @@ class CardPaymentResource extends PanelResource
                     ->badge()
                     ->color(fn (ToCardAttempt $record): string => self::statusColor($record)),
                 TextColumn::make('info_text')->label((string) __('tbe-gateway-card::web.receipt'))->limit(40)->placeholder('—'),
-                TextColumn::make('received_at')->label((string) __('tbe-gateway-card::web.sent'))->since()->sortable()->placeholder('—'),
+                PanelDates::since(TextColumn::make('received_at'))->label((string) __('tbe-gateway-card::web.sent'))->sortable()->placeholder('—'),
             ])
             ->filters([
                 SelectFilter::make('state')
@@ -112,6 +111,10 @@ class CardPaymentResource extends PanelResource
                     }),
             ])
             ->defaultSort('id', 'desc')
+            ->poll('30s')
+            ->persistFiltersInSession()
+            ->persistSearchInSession()
+            ->emptyStateHeading((string) __('tbe-gateway-card::web.empty.payments'))
             ->recordUrl(fn (ToCardAttempt $record): string => ViewCardPayment::getUrl(['record' => $record]));
     }
 
@@ -139,16 +142,7 @@ class CardPaymentResource extends PanelResource
 
     public static function memberName(?BotUser $user): string
     {
-        $telegramUser = $user?->telegramUser;
-        if (! $telegramUser instanceof TelegramUser) {
-            return '?';
-        }
-        if (is_string($telegramUser->username) && $telegramUser->username !== '') {
-            return '@'.$telegramUser->username;
-        }
-        $name = CardReview::fullName($user);
-
-        return $name !== '' ? $name : (string) $telegramUser->peer_id;
+        return PanelMembers::label($user);
     }
 
     public static function invoiceOf(ToCardAttempt $attempt): ?Invoice
