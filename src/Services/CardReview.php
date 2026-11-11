@@ -90,6 +90,8 @@ class CardReview
                     wHook()->api()->sendMessage([
                         'chat_id' => $peerId,
                         'text' => __('tbe-gateway-card::invoice.to_card.text.user-payment_rejected', ['rejectionReason' => $reason]),
+                        // As a reply to the invoice message, so the member sees which payment it was.
+                        ...($attempt->invoice?->replyToView() ?? []),
                     ]);
                 } catch (TelegramSDKException $e) {
                     // The member blocked the bot: the rejection stands.

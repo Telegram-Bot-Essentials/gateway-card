@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Http;
 use TelegramBotEssentials\Essence\Models\BotUser;
 use TelegramBotEssentials\Essence\Models\Conversation;
+use TelegramBotEssentials\Essence\Models\MessageMeta;
 
 /*
  * Receipts go to the transactions chat, which can be a private chat, a group
@@ -117,6 +118,26 @@ it('rejects from a private chat, as before', function () {
     $this->postWebhookUpdate($this->bot, $this->makeMessageUpdate('blurry photo', REVIEWER))->assertOk();
 
     expect($this->attempt->fresh()->reject_reason)->toBe('blurry photo');
+});
+
+it('sends the member the rejection reason as a reply to their invoice message', function () {
+    $invoice = $this->attempt->invoice;
+    $member = (int) $invoice->botUser->telegram_user_peer_id;
+    $view = new MessageMeta;
+    $view->chat_id = $member;
+    $view->message_id = 55;
+    $view->message_text = 'Invoice';
+    $view->tag = 'invoice_view';
+    $view->action()->associate($invoice);
+    $view->save();
+
+    reviewButton('rejectCardPayment', $this->attempt, REVIEW_CHAT, 'supergroup');
+    $this->postWebhookUpdate($this->bot, $this->inGroupChat($this->makeMessageUpdate('blurry photo', REVIEWER), REVIEW_CHAT))->assertOk();
+
+    Http::assertSent(fn ($request) => sendsTo($member)($request)
+        && str_contains((string) $request['text'], 'blurry photo')
+        && ($request['reply_parameters']['message_id'] ?? null) === 55
+        && ($request['reply_parameters']['allow_sending_without_reply'] ?? null) === true);
 });
 
 it('finishes the admin\'s review when the member cannot be reached', function () {

@@ -6,6 +6,13 @@ stabilizes at 1.0 a `0.x` bump may carry breaking changes.
 
 ## [Unreleased]
 
+## [0.1.25] - 2026-11-03
+
+### Changed
+
+- The rejection reason reaches the member as a reply to their invoice message,
+  and is sent as a plain message if that one is gone. Needs billing 0.0.53.
+
 ## [0.1.24] - 2026-11-02
 
 ### Fixed
