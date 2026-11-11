@@ -37,4 +37,8 @@ return [
         'rejected' => 'Rejected',
         'last_30' => 'Last 30 days',
     ],
+    'empty' => [
+        'sms' => 'Every SMS matched a payment',
+        'payments' => 'No card payments yet',
+    ],
 ];
