@@ -6,6 +6,32 @@ stabilizes at 1.0 a `0.x` bump may carry breaking changes.
 
 ## [Unreleased]
 
+## [0.1.26] - 2026-11-11
+
+### Added
+
+- Render the card payment page.
+- Translate the review screens to english.
+- Translate the review screens to persian.
+- Register the card payments panel plugin.
+- Add the card payments panel plugin.
+- Review card payments and list unmatched bank SMS.
+- Show card payment cards.
+- Add empty-list messages.
+- Group, date and tidy the panel screens.
+- Build the card payment page from the shared components.
+- Let the record number be copied from the list.
+
+### Changed
+
+- Accept card payments from the bot through the service.
+- Reject card payments from the bot through the service.
+
+### Fixed
+
+- Settle a card payment once, whoever reviews it.
+- Lock the bank SMS auto-accept like a review.
+
 ## [0.1.25] - 2026-11-03
 
 ### Changed
