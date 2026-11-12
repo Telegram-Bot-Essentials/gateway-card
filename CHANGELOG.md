@@ -6,6 +6,8 @@ stabilizes at 1.0 a `0.x` bump may carry breaking changes.
 
 ## [Unreleased]
 
+## [0.1.27] - 2026-11-12
+
 ### Fixed
 
 - Refuse a card number that is not 16 digits, or a transactions chat id that is not a number, when the setting is saved. Persian digits, spaces and dashes are accepted and stored as plain digits.
