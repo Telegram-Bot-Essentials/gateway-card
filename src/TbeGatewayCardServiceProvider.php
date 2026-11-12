@@ -14,6 +14,7 @@ use TelegramBotEssentials\Billing\Models\Invoice;
 use TelegramBotEssentials\Essence\Exceptions\LogicException;
 use TelegramBotEssentials\GatewayCard\Listeners\CloseCardAttemptOnInvoiceSettled;
 use TelegramBotEssentials\GatewayCard\Services\SmsParsers\BankSmsParserFactory;
+use TelegramBotEssentials\GatewayCard\Support\CardSettingValues;
 use TelegramBotEssentials\GatewayCard\Telegram\CallbackQueries\Admin\ManageCardPaymentQuery;
 use TelegramBotEssentials\GatewayCard\Telegram\CallbackQueries\Member\CardPaymentQuery;
 use TelegramBotEssentials\GatewayCard\Telegram\Features\Member\CardPaymentFeature;
@@ -115,6 +116,8 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
             label: fn () => __('tbe-gateway-card::settings.labels.card_number'),
             type: SettingType::TEXT,
             description: fn () => __('tbe-gateway-card::settings.descriptions.card_number'),
+            beforeSet: fn (mixed $value) => CardSettingValues::cardNumber($value),
+            rules: fn () => CardSettingValues::cardNumberRules(),
         ));
 
         settings()->addSetting(new Setting(
@@ -129,6 +132,8 @@ class TbeGatewayCardServiceProvider extends ServiceProvider
             label: fn () => __('tbe-gateway-card::settings.labels.transactions_chat_id'),
             type: SettingType::TEXT,
             description: fn () => __('tbe-gateway-card::settings.descriptions.transactions_chat_id'),
+            beforeSet: fn (mixed $value) => CardSettingValues::chatId($value),
+            rules: fn () => CardSettingValues::chatIdRules(),
         ));
 
         settings()->addSetting(new Setting(
