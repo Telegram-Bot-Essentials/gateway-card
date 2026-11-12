@@ -157,3 +157,39 @@ it('finishes the admin\'s review when the member cannot be reached', function ()
     Http::assertNotSent(fn ($request) => str_ends_with($request->url(), '/sendMessage')
         && str_contains((string) $request['text'], 'Something went wrong'));
 });
+
+it('puts the review buttons back and keeps the payment pending when the reviewer cancels the rejection', function (string $type, int $answerChat) {
+    $this->meta->forceFill(['message_text' => 'Receipt', 'message_reply_markup' => '{"inline_keyboard":[]}'])->save();
+    if ($type === 'private') {
+        $this->meta->forceFill(['chat_id' => REVIEWER])->save();
+    }
+
+    reviewButton('rejectCardPayment', $this->attempt, $type === 'private' ? REVIEWER : REVIEW_CHAT, $type);
+
+    $cancel = $this->makeMessageUpdate('/cancel', REVIEWER);
+    if ($answerChat !== REVIEWER) {
+        $cancel = $this->inGroupChat($cancel, $answerChat);
+    }
+    $this->postWebhookUpdate($this->bot, $cancel)->assertOk();
+
+    expect($this->attempt->fresh()->status)->toBe($this->attempt->status)
+        ->and($this->attempt->fresh()->reject_reason)->toBeNull();
+    Http::assertSent(fn ($request) => str_ends_with($request->url(), '/editMessageText')
+        && (int) $request['chat_id'] === (int) $this->meta->fresh()->chat_id
+        && (int) $request['message_id'] === 77);
+    Http::assertNotSent(fn ($request) => str_contains((string) ($request['text'] ?? ''), 'Something went wrong'));
+
+    // The reviewer can start over afterwards.
+    reviewButton('rejectCardPayment', $this->attempt, $type === 'private' ? REVIEWER : REVIEW_CHAT, $type);
+    $reason = $this->makeMessageUpdate('blurry photo', REVIEWER);
+    if ($answerChat !== REVIEWER) {
+        $reason = $this->inGroupChat($reason, $answerChat);
+    }
+    $this->postWebhookUpdate($this->bot, $reason)->assertOk();
+
+    expect($this->attempt->fresh()->reject_reason)->toBe('blurry photo');
+})->with([
+    'private chat' => ['private', REVIEWER],
+    'group' => ['supergroup', REVIEW_CHAT],
+    'channel, answered privately' => ['channel', REVIEWER],
+]);
