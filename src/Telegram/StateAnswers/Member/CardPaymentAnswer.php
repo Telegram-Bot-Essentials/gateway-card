@@ -100,8 +100,11 @@ class CardPaymentAnswer extends StateAnswer
             ]);
         }
 
+        // Remember what was sent, not what came back: copyMessage answers with
+        // the new message id alone, and a meta without text or buttons cannot
+        // be locked once a reviewer settles the payment.
         $invoice->paymentAttempt->messageMeta
-            ->initializeModel(settings()->get('billing.gateways.card.transactions_chat_id'), $message->messageId, $message->text, $message->replyMarkup);
+            ->initializeModel(settings()->get('billing.gateways.card.transactions_chat_id'), $message->messageId, $message->text ?? $text, $message->replyMarkup ?? json_encode($replyMarkup));
 
         // The bank SMS commonly beats the member back to the bot with their
         // proof - check whether it already arrived and was parked by
