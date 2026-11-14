@@ -6,6 +6,8 @@ stabilizes at 1.0 a `0.x` bump may carry breaking changes.
 
 ## [Unreleased]
 
+## [0.1.28] - 2026-11-14
+
 ### Fixed
 
 - Accepting or rejecting a screenshot receipt puts the review message's
