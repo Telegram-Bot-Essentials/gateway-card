@@ -6,6 +6,12 @@ stabilizes at 1.0 a `0.x` bump may carry breaking changes.
 
 ## [Unreleased]
 
+### Fixed
+
+- Accepting or rejecting a screenshot receipt puts the review message's
+  Accept/Reject buttons away. copyMessage returns only the message id, so the
+  review was saved without text and the lock was skipped.
+
 ## [0.1.27] - 2026-11-12
 
 ### Fixed
